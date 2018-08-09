@@ -18,5 +18,16 @@ This is basically a small student record system. This service is mainly created 
 
 The student data are stored in the local mysql database.
 The sql file has been included in the repo for your ease.
+Run this sql file to create the database locally.
+
+The config file is also included in the repo for the configurations to be made to send traces to zipkin.
+
+There are two files namely records.bal and main.bal.
+
+
+records.bal is the service provider.
+main.bal is the client to make RPCs.
+    
+
 
 
