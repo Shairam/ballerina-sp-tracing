@@ -26,6 +26,7 @@ There are two files namely records.bal and main.bal.
 
 
 records.bal is the service provider.
+
 main.bal is the client to make RPCs.
     
 
