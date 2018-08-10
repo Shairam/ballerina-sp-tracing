@@ -69,8 +69,10 @@ In order to send trace data to Zipkin, configurations are to be done as follows.
   Run the following command :- 
 
      docker run -p 9411:9411 honeycombio/honeycomb-opentracing-proxy -k APIKEY -d traces
-
-  -k represent the APi Key you will be getting when you sign in to honeycomb account.
+     
+     
+        
+  -k represent the API KEY you will be getting when you sign in to honeycomb account.
 
   -d represents the dataset you are going to send your trace data to.
 
