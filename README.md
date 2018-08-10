@@ -23,7 +23,7 @@ MYSQL
 
 Ballerina
 
-Maven 
+Apache Maven 
 
 # Configuring your service
 In order to send trace data to Zipkin, configurations are to be done as follows.
