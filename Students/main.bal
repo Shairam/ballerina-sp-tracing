@@ -2,7 +2,7 @@ import ballerina/io;
 import ballerina/http;
 import ballerina/log;
 
-endpoint http:Client hs{
+endpoint http:Client studentData{
     url: " http://localhost:9090"
 };
 
@@ -52,7 +52,7 @@ function main(string... args) {
          req.setJsonPayload(jsonMsg);
 
         //send the request to students service and get the response from it
-        var resp= hs->post("/records/addStudent",req);
+        var resp= studentData->post("/records/addStudent",req);
         match resp {
             http:Response response => {
                 var msg = response.getJsonPayload();            //obtaining the result from the response received
@@ -79,7 +79,7 @@ function main(string... args) {
         else if(operation == 2) {
 
             //sending a request to list down all students and get the response from it
-            var requ= hs->post("/records/viewAll","null");
+            var requ= studentData->post("/records/viewAll","null");
 
             match requ {
                 http:Response response => {
@@ -130,7 +130,7 @@ function main(string... args) {
             var id = io:readln("Enter student id: ");
 
             // Request made to find the student with the given id and get the response from it
-            var requ= hs->get("/records/view/"+check <int>id);
+            var requ= studentData->get("/records/view/"+check <int>id);
 
              match requ {
             http:Response response => {
@@ -172,7 +172,7 @@ function main(string... args) {
             var id = io:readln("Enter student id: ");
 
             // Request made to find the student with the given id and get the response from it
-            var requ = hs->get("/records/deleteStu/" + check <int>id);
+            var requ = studentData->get("/records/deleteStu/" + check <int>id);
 
             match requ {
                 http:Response response => {
@@ -199,14 +199,6 @@ function main(string... args) {
                     io:println(er.message);
                 }
             }
-        }
-
-        else if (operation == 6){
-            var id = io:readln("Enter student id: ");
-            var reqrt = hs->post("/records/findDel/"+ check <int> id,null);
-
-
-            io:println(reqrt);
         }
 
         else {

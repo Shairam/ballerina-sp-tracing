@@ -3,6 +3,7 @@ import ballerina/mysql;
 import ballerina/http;
 import ballerina/runtime;
 import ballerina/observe;
+import ballerina/log;
 
 
 // type Student is created to store details of a student
@@ -91,11 +92,11 @@ service<http:Service> StudentData bind listener {
     }
     //viewStudent service to get all the students details and send to the requested user
     viewStudents(endpoint httpConnection, http:Request request){
-        map<string> mp = {"Port":"9097"};
+        map<string> mp = {"Port":"9090"};
         map<string> mp2 = {"endpoint":"/records/viewAll"};
        http:Response response;
        json status = {};
-        
+        //log:printError("error occured");
        
 
             
@@ -193,27 +194,27 @@ service<http:Service> StudentData bind listener {
         }
 
 
-    @http:ResourceConfig {
-        methods: ["POST"],
-        path: "/findDel/{stuId}"
-    }
-    //viewOne service to find the details of a particular student using id;
-    findDelete(endpoint httpConnection, http:Request request,int stuId){
-        http:Response response;
-        map<string> mp = {"endpoint":"/findDel/{stuId}"};
-
-       // int spanid2 = check  observe:startSpan("find delete span");
-        var requ= self->get("/records/view/"+ untaint stuId);
-
-
-
-       // _ = observe:finishSpan(spanid2);
-        //Pass the obtained json object to the request
-
-
-
-
-    }
+    //@http:ResourceConfig {
+    //    methods: ["POST"],
+    //    path: "/findDel/{stuId}"
+    //}
+    ////viewOne service to find the details of a particular student using id;
+    //findDelete(endpoint httpConnection, http:Request request,int stuId){
+    //    http:Response response;
+    //    map<string> mp = {"endpoint":"/findDel/{stuId}"};
+    //
+    //   // int spanid2 = check  observe:startSpan("find delete span");
+    //    var requ= self->get("/records/view/"+ untaint stuId);
+    //
+    //
+    //
+    //   // _ = observe:finishSpan(spanid2);
+    //    //Pass the obtained json object to the request
+    //
+    //
+    //
+    //
+    //}
 
 
     }
@@ -379,7 +380,7 @@ public function showMetrics() {
 }
 
 documentation {
-  `getId` is a function to get the Id of the student added inn latest.
+  `getId` is a function to get the Id of the student added in latest.
 
     P{{mobNo}} This is the mobile number of the student added which is passed as parameter to build up the query.
 
