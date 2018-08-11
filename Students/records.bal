@@ -9,14 +9,8 @@ import ballerina/log;
 // type Student is created to store details of a student
 
 documentation {
-  `Student` is a user defined object type in Ballerina program. This
-    `Student` is used to hold two string data fields .
+  `Student` is a user defined record type in Ballerina program. Used to represent a student entity
 
-
-    F{{id}} This is the description for the `DummyObject`'s field `id`.
-                  `F` doc prefix is used to mark a field on Object.
-    F{{age}} This is the description for the `DummyObject`'s field `age`.
-                  `F` doc prefix is used to mark a field on Object
 
 }
 type Student record {
@@ -194,28 +188,6 @@ service<http:Service> StudentData bind listener {
         }
 
 
-    //@http:ResourceConfig {
-    //    methods: ["POST"],
-    //    path: "/findDel/{stuId}"
-    //}
-    ////viewOne service to find the details of a particular student using id;
-    //findDelete(endpoint httpConnection, http:Request request,int stuId){
-    //    http:Response response;
-    //    map<string> mp = {"endpoint":"/findDel/{stuId}"};
-    //
-    //   // int spanid2 = check  observe:startSpan("find delete span");
-    //    var requ= self->get("/records/view/"+ untaint stuId);
-    //
-    //
-    //
-    //   // _ = observe:finishSpan(spanid2);
-    //    //Pass the obtained json object to the request
-    //
-    //
-    //
-    //
-    //}
-
 
     }
 
@@ -368,16 +340,7 @@ public function findStudent(int stuId) returns (json){
     return status;
 }
 
-public function showMetrics() {
-    observe:Metric[] metrics = observe:getAllMetrics();
-    foreach metric in metrics {
-        io:println();
-       io:println(metric.name);
-        io:println(metric.tags);
-        io:println(metric.value);
-        io:println();
-    }
-}
+
 
 documentation {
   `getId` is a function to get the Id of the student added in latest.
@@ -407,70 +370,5 @@ public function getId(int mobNo) returns (table|error ) {
 
 }
 
-// function main(string... args) {
 
-//     io:println("The update operation - Creating a table:");
-//     var ret = testDB->update("CREATE TABLE student(id INT AUTO_INCREMENT,
-//                           age INT, name VARCHAR(255), PRIMARY KEY (id))");
-//     handleUpdate(ret, "Create student table");
-
-//     io:println("\nThe update operation - Inserting data to a table");
-//     ret = testDB->update("INSERT INTO student(age, name)
-//                           values (23, 'john')");
-//     handleUpdate(ret, "Insert to student table with no parameters");
-
-//    io:println("\nThe update operation - Inserting data to a table");
-//     ret = testDB->update("INSERT INTO student(age, name)
-//                           values (23, 'Peter')");
-//     handleUpdate(ret, "Insert to student table with no parameters");
-
-//    io:println("\nThe update operation - Inserting data to a table");
-//     ret = testDB->update("INSERT INTO student(age, name)
-//                           values (23, 'Jack')");
-//     handleUpdate(ret, "Insert to student table with no parameters");
-
-//     io:println("\nThe select operation - Select data from a table");
-//     var selectRet = testDB->select("SELECT * FROM student", Student,loadToMemory=true);
-//     table<Student> dt;
-//     match selectRet {
-//         table tableReturned => dt = tableReturned;
-//         error e => io:println("Select data from student table failed: "
-//                                + e.message);
-//     }
-
-//     io:println("Iterating data first time:");
-//     foreach row in dt {
-//         io:println("Student:" + row.id + "|" + row.name + "|" + row.age);
-//     }
-
-//     io:println("\nConvert the table into json");
-//     var jsonConversionRet = <json>dt;
-//     match jsonConversionRet {
-//         json jsonRes => {
-//             io:print("JSON: ");
-//             io:println(io:sprintf("%s", jsonRes));
-//         }
-//         error e => io:println("Error in table to json conversion");
-//     }
-
-// 	 selectRet = testDB->select("SELECT * FROM student", Student,
-//         loadToMemory = true);
-    
-
-    
-
-
-//     //io:println("\nThe update operation - Drop student table");
-//     //ret = testDB->update("DROP TABLE student");
-//    //handleUpdate(ret, "Drop table student");
-
-//     testDB.stop();
-// }
-
-// function handleUpdate(int|error returned, string message) {
-//     match returned {
-//         int retInt => io:println(message + " status: " + retInt);
-//         error e => io:println(message + " failed: " + e.message);
-//     }
-// }
 
