@@ -17,6 +17,7 @@ function main(string... args) {
         io:println("3. Find a student");
         io:println("4. Delete a student");
         io:println("5. Exit");
+        io:println("6. Make a mock error");
         io:println();
 
         // read user's choice
@@ -79,7 +80,7 @@ function main(string... args) {
         else if(operation == 2) {
 
             //sending a request to list down all students and get the response from it
-            var requ= studentData->post("/records/viewAll","null");
+            var requ= studentData->post("/records/viewAll",null);
 
             match requ {
                 http:Response response => {
@@ -201,6 +202,32 @@ function main(string... args) {
             }
         }
 
+        else if(operation==6) {
+            var requ = studentData->get("/records/testError");
+            match requ {
+                http:Response response => {
+                    var msg = response.getTextPayload();            //obtaining the result from the response received
+                    match msg {
+                        string message => {
+
+
+
+                            io:println();
+                            io:println(message);
+                            io:println();
+                        }
+
+                        error err => {
+                            log:printError(err.message, err = err);           //Print any error caused
+                        }
+                    }
+                }
+
+                error er => {
+                    io:println(er.message);
+                }
+            }
+        }
         else {
             io:println("Invalid choice");
         }   

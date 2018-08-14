@@ -90,7 +90,7 @@ service<http:Service> StudentData bind listener {
         map<string> mp2 = {"endpoint":"/records/viewAll"};
        http:Response response;
        json status = {};
-        //log:printError("error occured");
+
        
 
             
@@ -136,6 +136,18 @@ service<http:Service> StudentData bind listener {
             _ = httpConnection->respond(response);
     }
 
+    @http:ResourceConfig {
+        methods: ["GET"],
+        path: "/testError"
+    }
+    //viewStudent service to get all the students details and send to the requested user
+    testError(endpoint httpConnection, http:Request request) {
+        http:Response  response;
+        log:printError("error test");
+        response.setTextPayload("Test Error made");
+        _ = httpConnection->respond(response);
+    }
+
 
     @http:ResourceConfig {
         methods: ["GET"],
@@ -163,6 +175,8 @@ service<http:Service> StudentData bind listener {
     }
 
 
+
+
      @http:ResourceConfig {
         methods: ["GET"],
         path: "/view/{stuId}"
@@ -171,6 +185,7 @@ service<http:Service> StudentData bind listener {
     viewOne(endpoint httpConnection, http:Request request,int stuId){
         http:Response response;
         map<string> mp = {"endpoint":"/view/{studentId}"};
+
 
        // int spanId = observe:startRootSpan("Parent");
 
