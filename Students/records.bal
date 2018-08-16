@@ -22,6 +22,8 @@ type Student record {
 
 };
 
+
+
 endpoint http:Client self{
     url: " http://localhost:9090"
 };
@@ -42,11 +44,15 @@ endpoint mysql:Client testDB {
     port: 9090
 };
 
+
 // Service for the Student data service
 @http:ServiceConfig {
     basePath: "/records"
 }
 service<http:Service> StudentData bind listener {
+
+    int errors = 0;
+    int req_count=0;
 
     @http:ResourceConfig {
         methods: ["POST"],
@@ -55,6 +61,7 @@ service<http:Service> StudentData bind listener {
     // addStudents service used to add student records to the system
     addStudents(endpoint httpConnection, http:Request request) {
             // Initialize an empty http response message
+        req_count++;
         http:Response response;
         map<string> mp = {"endpoint":"records/addStudent"};
         Student stuData;
@@ -86,6 +93,10 @@ service<http:Service> StudentData bind listener {
     }
     //viewStudent service to get all the students details and send to the requested user
     viewStudents(endpoint httpConnection, http:Request request){
+        req_count++;
+
+        //int chSpanId = check observe:startSpan("Check child",parentSpanId = childSpanId);
+
         map<string> mp = {"Port":"9090"};
         map<string> mp2 = {"endpoint":"/records/viewAll"};
        http:Response response;
@@ -99,7 +110,7 @@ service<http:Service> StudentData bind listener {
             var selectRet = testDB->select("SELECT * FROM student", Student,loadToMemory=true); //sending a request to mysql endpoint and getting a response with required data table
 
             //  _ = observe:finishSpan(spanId2);
-           
+           //_ = observe:finishSpan(chSpanId);
 
 
 
@@ -134,6 +145,8 @@ service<http:Service> StudentData bind listener {
             //Sending back the converted json data to the request made to this service
             response.setJsonPayload(untaint status);
             _ = httpConnection->respond(response);
+
+
     }
 
     @http:ResourceConfig {
@@ -142,12 +155,36 @@ service<http:Service> StudentData bind listener {
     }
     //viewStudent service to get all the students details and send to the requested user
     testError(endpoint httpConnection, http:Request request) {
+        req_count++;
+        //int spanId = check observe:startSpan("check error");
         http:Response  response;
+
+
+        errors++;
+            io:println(errors);
+        _ = observe:addTagToSpan(-1, "error_counts",  <string> errors);
+        _ = observe:addTagToSpan(-1, "tot_requests",  <string> req_count);
         log:printError("error test");
         response.setTextPayload("Test Error made");
         _ = httpConnection->respond(response);
+       //_ = observe:finishSpan(spanId);
     }
 
+
+    //testAnotherMethodError(endpoint httpConnection, http:Request request) {
+    //    req_count++;
+    //    int spanId = observe:startRootSpan("check error");
+    //    http:Response  response;
+    //
+    //    errors++;
+    //    io:println(errors);
+    //    _ = observe:addTagToSpan(spanId, "error_counts",  <string> errors2);
+    //    _ = observe:addTagToSpan(spanId, "tot_requests",  <string> req_count2);
+    //    log:printError("error test");
+    //    response.setTextPayload("Test Error made");
+    //    _ = httpConnection->respond(response);
+    //    _ = observe:finishSpan(spanId);
+    //}
 
     @http:ResourceConfig {
         methods: ["GET"],
@@ -155,6 +192,7 @@ service<http:Service> StudentData bind listener {
     }
     //deleteStudents service for deleteing a student using id
     deleteStudent(endpoint httpConnection, http:Request request,int stuId){
+        req_count++;
         map<string> mp = {"endpoint":"/records/deleteStu/{stuId}"};
 
         http:Response response;
@@ -183,6 +221,7 @@ service<http:Service> StudentData bind listener {
     }
      //viewOne service to find the details of a particular student using id;
     viewOne(endpoint httpConnection, http:Request request,int stuId){
+         req_count++;
         http:Response response;
         map<string> mp = {"endpoint":"/view/{studentId}"};
 
