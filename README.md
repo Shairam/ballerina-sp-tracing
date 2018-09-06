@@ -40,15 +40,17 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
  For the purpose of this guide, let's use the following package structure.
         
     
-        ballerina-honeycomb
-         └── guide
-            ├── students
-            │   ├── records.bal
-            │   ├── records2.bal
-            │   ├── main.bal
-            │   └── tests
-            │       └── student_service_test.bal
-            └── ballerina.conf
+            ballerina-honeycomb
+             └── guide
+                ├── students
+                │   ├── records.bal
+                │   ├── records2.bal
+                │   ├── main.bal
+                │   └── tests
+                │   │   └── student_service_test.bal
+     │          |   └── Client_service
+                |         └── main.bal
+                └── ballerina.conf
         
 
 - Create the above directories in your local machine, along with the empty `.bal` files.
@@ -984,70 +986,4 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
  $ ballerina run Client_Service
  ``` 
  
- 
-
-# Configuring your service
-In order to send trace data to Zipkin, configurations are to be done as follows.
-
-1. Create a file with name ballerina.conf
-2. Add the following lines :-
-
-        [b7a.observability.tracing]
-        enabled=true
-        name="zipkin"
-        
-        # reporter.hostname will be your host machine
-        # report.port will be the port your service will report the traces to
-        [b7a.observability.tracing.zipkin]
-        reporter.hostname="localhost"
-        reporter.port=9411
-
-        #Send the spans in V1 format as honeycomb-opentracing-proxy supports on V1
-        reporter.api.context="/api/v1/spans"
-        reporter.api.version="v1"
-
-        reporter.compression.enabled=false
-
-3.  While running the service you are to use this file to configure your service.(shown later below).
-
-    
-# Adding Zipkin Dependencies
-
-1. Go to ballerina-observability and clone the GitHub repository in any preferred location.
-2. Make sure you have installed Apache Maven.
- 
-3. Build the repository by running the following command from the terminal in the root project directory ballerina-observability.
-
-               mvn clean install                                
-4.   Go to the path - 
-        ballerina-observability/tracing-extensions/modules/ballerina-zipkin-extension/target/ and extract distribution.zip.
-5.  Copy all the JAR files inside the distribution.zip to 'bre/lib' directory in ballerina distribution that you have installed.
-
-# How to start and observe
-
- You need to start the honeycomb-opentracing-proxy. This can be done by using docker. Docker is used to pull the image for honeycomb-opentracing-proxy.
-
-  Run the following command :- 
-
-     docker run -p 9411:9411 honeycombio/honeycomb-opentracing-proxy -k APIKEY -d traces
-     
-     
-        
-  -k represent the API KEY you will be getting when you sign in to honeycomb account.
-
-  -d represents the dataset you are going to send your trace data to.
-  
-  
-  
-
-
-2.   Start the records.bal service using :-
-
-         ballerina run --config <path-to-ballerina-conf>/ballerina.conf <path-to-records.bal>/records.bal
-
-3.  Start the main.bal using the below commands and perform some operations in order to observe your traces in honeycomb.
-            
-        ballerina run  <path-to-main.bal>/main.bal
-    
-
-
+ After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset and check for the received traces.
