@@ -76,7 +76,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
              └── guide
                 ├── students
                 │   ├── student_management_service.bal
-                │   ├── marks_management_service.bal
+                │   ├── student_marks_management_service.bal
                 │   ├── main.bal  
                 |   └── Client_service
                 |         └── client_main.bal
@@ -569,7 +569,7 @@ public function getId(int mobNo) returns (table|error) {
 Now we will look into the implementation of obtaining the marks of the students from database through another service.
 
 
-##### marks_management_service.bal
+##### student_marks_management_service.bal
 
 ``` ballerina
 import ballerina / io;
@@ -1016,9 +1016,63 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
  $ ballerina run Client_Service
  ``` 
  
- After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset and check for the received traces.
- You can perform many queries in Honeycomb UI in order to evaluate the performance in various aspects.
+ After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset..
+
+   When you are in your dataset in Honeycomb UI you get to see a button called `New query`, and when you click on that 
+   you can write your own queries on the metrics that you have received.
+ - You are expected to see the traces as below when you include traceId in the breakdown category.
  
+     ![Honeycomb](images/traces1.png "Honeycomb")
+ 
+ - To view a particular trace click on the traceId column. And you will see as below
+ 
+    ![Honeycomb](images/traces2.png "Honeycomb")
+    
+ - To view span details with metrics click on a particular span and you are expected to see as below
+ 
+     ![Honeycomb](images/traces3.png "Honeycomb")
+     
+  You can perform some detailed queries in order to look deep in the performance of your services. For example
+  
+   - The below query will help you find the number of requests per resource (will include self defined spans as well)
+   
+            
+            Query parameters use for each category:-
+            
+                          1. BREAK DOWN - name
+                          2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId)
+                          3. FILTER - name does-not-start-with ballerina/ 
+                          4. LIMIT - 100
+            
+         We filter out the other default ballerina resource using the filter query.
+    
+   The result of the above query is as below ; -
+ 
+   ![Honeycomb](images/traces4.png "Honeycomb")
+   
+   
+   
+   ##### Honeycomb UI Boards
+   
+   These queries can be predefined and added to the board so that the live observability can be achieved without building queries multiple times. 
+   
+   To add a query to a board : -
+      
+   - Create a board.  You can create a board when you run a query. You will see an option “Add to Board” above the query builder.
+   
+   ![Honeycomb](images/table1.png "Honeycomb") 
+   
+     
+   -  After creating a board select the board. In this guide a board “Requests details” has been already created. Give a name for your query ,add description to be more clear and save the query
+    
+   ![Honeycomb](images/table2.png "Honeycomb") 
+   
+   - You can view your boards by clicking the “My Boards” in the team’s main menu in honeycomb UI.
+
+   ![Honeycomb](images/table4.png "Honeycomb")  
+   
+   
+   -  You can click on any of the queries and run the query for that particular instant.
  ## About Honeycomb
  
  Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
@@ -1030,6 +1084,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
  
  
 ![Honeycomb](images/spans2.png "Honeycomb")
+
+
 
 For example a client requesting data from the database as above.
 E refers to an event.

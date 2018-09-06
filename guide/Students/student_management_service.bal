@@ -9,15 +9,14 @@ import ballerina/log;
 documentation {
   `Student` is a user defined record type in Ballerina program. Used to represent a student entity
 
-
 }
+
 type Student record {
     int id,
     int age,
     string name,
     int mobNo,
     string address,
-
 };
 
 

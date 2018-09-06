@@ -10,7 +10,7 @@ function main(string... args) {
 
     http:Request req = new;
     int operation = 0;
-    while (operation != 5) {
+    while (operation != 7) {
         // print options menu to choose from
         io:println("Select operation.");
         io:println("1. Add student");
@@ -32,7 +32,7 @@ function main(string... args) {
 
         operation = check <int>choice;
 
-        // Program runs until the user inputs 5 to terminate the process
+        // Program runs until the user inputs 7 to terminate the process
         if (operation == 7) {
             break;
         }
