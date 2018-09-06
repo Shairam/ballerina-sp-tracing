@@ -21,7 +21,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 
 ![Honeycomb](images/observer-01.png "Ballerina-Honeycomb")
 
-- **Create Order** : To perform actions on student this management service, a console based client program has been written in Ballerina for your ease of making requests.
+- **Make Requests** : To perform actions on student  management service, a console based client program has been written in Ballerina for your ease of making requests.
 
 ## Prerequisites
  
@@ -47,7 +47,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
                 │   ├── main.bal
                 │   └── tests
                 │   │   └── student_service_test.bal
-     │          |   └── Client_service
+                |   └── Client_service
                 |         └── main.bal
                 └── ballerina.conf
         
@@ -535,7 +535,7 @@ public function getId(int mobNo) returns (table|error) {
 
 ```
 
-Now we will look into the implementation of obtaining the marks of the students from datbase through another service.
+Now we will look into the implementation of obtaining the marks of the students from database through another service.
 
 
 ##### records2.bal
