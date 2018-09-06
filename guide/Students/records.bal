@@ -4,8 +4,6 @@ import ballerina/http;
 import ballerina/runtime;
 import ballerina/observe;
 import ballerina/log;
-import ballerinax/docker;
-
 
 // type Student is created to store details of a student
 documentation {
@@ -23,11 +21,6 @@ type Student record {
 };
 
 
-@docker:Config {
-    registry:"ballerina.guides.io",
-    name:"ballerina-honeycomb",
-    tag:"v1.0"
-}
 endpoint http:Client self {
     url: " http://localhost:9090"
 };
