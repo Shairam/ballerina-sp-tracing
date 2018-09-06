@@ -17,9 +17,9 @@ function main(string... args) {
         io:println("2. View all students");
         io:println("3. Find a student");
         io:println("4. Delete a student");
-        io:println("5. Exit");
-        io:println("6. Make a mock error");
-        io:println("7: Get a student's marks");
+        io:println("5. Make a mock error");
+        io:println("6: Get a student's marks");
+        io:println("7. Exit");
         io:println();
 
         // read user's choice
@@ -33,7 +33,7 @@ function main(string... args) {
         operation = check <int>choice;
 
         // Program runs until the user inputs 5 to terminate the process
-        if (operation == 5) {
+        if (operation == 7) {
             break;
         }
 
@@ -219,7 +219,7 @@ function main(string... args) {
             }
         }
 
-        else if (operation == 6) {
+        else if (operation == 5) {
             var requ = studentData->get("/records/testError");
             match requ {
                 http:Response response => {
@@ -247,7 +247,7 @@ function main(string... args) {
             }
         }
 
-        else if (operation == 7){
+        else if (operation == 6){
             // Get student id
             var id = io:readln("Enter student id: ");
 
