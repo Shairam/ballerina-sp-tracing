@@ -676,7 +676,7 @@ public function findMarks(int stuId) returns (json){
 
 Lets look into the implementation of the client implementation.
 
-##### main.bal
+##### client_main.bal
 
 ``` ballerina
 
