@@ -4,7 +4,6 @@
 Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
 
 > In this guide you will learn how to integrate your service with Honeycomb in order to interpret your services' performances.
->  [What is Honeycomb](#About-Honeycomb)
 
 
 The following are the sections available in this guide.
@@ -987,7 +986,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
  ``` 
  
  After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset and check for the received traces.
- 
+ You can perform many queries in Honeycomb UI in order to evaluate the performance in various aspects.
  
  ## About Honeycomb
  
@@ -1017,3 +1016,7 @@ These traces contains metadata (span data) which can be captured by honeycomb an
 Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collect the zipkin formatted trace data and send to honeycomb. 
 
 ![Honeycomb](images/structure.png "Open tracing")
+
+
+
+
