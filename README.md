@@ -19,7 +19,7 @@ The following are the sections available in this guide.
 
 To perform this integration with Honeycomb,  a real world use case of a very simple student management system is used.
 
-![Honeycomb](images/observer-01.png "Ballerina-Honeycomb")
+![Honeycomb](images/observe(1).png "Ballerina-Honeycomb")
 
 - **Make Requests** : To perform actions on student  management service, a console based client program has been written in Ballerina for your ease of making requests.
 
@@ -34,6 +34,39 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 
 > If you want to skip the basics, you can download the GitHub repo and continue from the "Testing" section.
 
+### Implementing database
+ - Start MYSQL server in your local machine.
+ - Create a database with name `testdb` in your MYSQL localhost. If you want to skip the database implementation, then directly import the testdb.sql file into your localhost. You can find it in the Github repo.
+ - Add the following queries to create two tables.
+ 
+ ##### Student table
+ 
+ ```
+ CREATE TABLE `student` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `age` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `mobNo` int(20) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1
+ ``` 
+ 
+  ##### Marks table 
+  
+  - After creating the marks table, insert some marks data through [http://localhost/phpmyadmin/](#http://localhost/phpmyadmin/)
+  
+  ```
+  CREATE TABLE `marks` (
+   `student_Id` int(11) NOT NULL,
+   `maths` int(3) NOT NULL,
+   `english` int(3) NOT NULL,
+   `science` int(3) NOT NULL,
+   PRIMARY KEY (`student_Id`),
+   CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`student_Id`) REFERENCES `student` (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+  ```
+
 ### Create the project structure
         
  For the purpose of this guide, let's use the following package structure.
@@ -42,13 +75,11 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
             ballerina-honeycomb
              └── guide
                 ├── students
-                │   ├── records.bal
-                │   ├── records2.bal
-                │   ├── main.bal
-                │   └── tests
-                │   │   └── student_service_test.bal
+                │   ├── student_management_service.bal
+                │   ├── marks_management_service.bal
+                │   ├── main.bal  
                 |   └── Client_service
-                |         └── main.bal
+                |         └── client_main.bal
                 └── ballerina.conf
         
 
@@ -75,7 +106,7 @@ reporter.compression.enabled=false
 
 - Then open the terminal and navigate to `ballerina-honeycomb/guide` and run Ballerina project initializing toolkit.
 
-``bash
+``
    $ ballerina init
 ``
 
@@ -83,7 +114,7 @@ reporter.compression.enabled=false
 
 Now let us look into the implementation of the student management with observability.
 
-##### records.bal
+##### student_management_service.bal
 
 ``` ballerina
 import ballerina/io;
@@ -538,7 +569,7 @@ public function getId(int mobNo) returns (table|error) {
 Now we will look into the implementation of obtaining the marks of the students from database through another service.
 
 
-##### records2.bal
+##### marks_management_service.bal
 
 ``` ballerina
 import ballerina / io;
