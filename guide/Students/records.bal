@@ -4,6 +4,7 @@ import ballerina/http;
 import ballerina/runtime;
 import ballerina/observe;
 import ballerina/log;
+import ballerinax/docker;
 
 
 // type Student is created to store details of a student
@@ -22,7 +23,11 @@ type Student record {
 };
 
 
-
+@docker:Config {
+    registry:"ballerina.guides.io",
+    name:"ballerina-honeycomb",
+    tag:"v1.0"
+}
 endpoint http:Client self {
     url: " http://localhost:9090"
 };
@@ -44,7 +49,7 @@ endpoint mysql:Client testDB {
 };
 
 //This service listener
-endpoint http:Listener listener {
+endpoint http:Listener listener1 {
     port: 9090
 };
 
@@ -53,7 +58,7 @@ endpoint http:Listener listener {
 @http:ServiceConfig {
     basePath: "/records"
 }
-service<http:Service> StudentData bind listener {
+service<http:Service> StudentData bind listener1 {
 
     int errors = 0;
     int req_count = 0;
@@ -105,11 +110,11 @@ service<http:Service> StudentData bind listener {
         json status = {};
 
 
-        // int spanId2 = check observe:startSpan("Database call span");
+         int spanId2 =  observe:startRootSpan("Database call span");
 
         var selectRet = testDB->select("SELECT * FROM student", Student, loadToMemory = true);
         //sending a request to mysql endpoint and getting a response with required data table
-
+        _ = observe:finishSpan(spanId2);
 
         table<Student> dt;
         // a table is declared with Student as its type
@@ -206,7 +211,7 @@ service<http:Service> StudentData bind listener {
         http:Response response;
         json result;
 
-        int fsp = check observe:startSpan("First span");
+        int firstsp = check observe:startSpan("First span");
         //Self defined span for observability purposes
         var requ = marksService->get("/marks/getMarks/" + untaint stuId);
         //Request made for obtaining marks of the student with the respective stuId to marks Service.
@@ -230,7 +235,7 @@ service<http:Service> StudentData bind listener {
             }
         }
 
-        _ = observe:finishSpan(fsp);
+        _ = observe:finishSpan(firstsp);
         // Stopping the previously started span.
 
         response.setJsonPayload(untaint result);

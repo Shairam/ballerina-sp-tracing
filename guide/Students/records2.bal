@@ -6,6 +6,7 @@ import ballerina / observe;
 import ballerina / log;
 
 
+
 type Marks record {
     int student_Id,
     int maths,
@@ -23,6 +24,8 @@ password: "",
 poolOptions: { maximumPoolSize: 5 },
 dbOptions: { useSSL: false }
 };
+
+
 
 // This service listener
 endpoint http:Listener listener {

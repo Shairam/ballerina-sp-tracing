@@ -4,7 +4,7 @@
 Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
 
 > In this guide you will learn how to integrate your service with Honeycomb in order to interpret your services' performances.
-
+>  [What is Honeycomb](#About-Honeycomb)
 
 
 The following are the sections available in this guide.
@@ -987,3 +987,33 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
  ``` 
  
  After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset and check for the received traces.
+ 
+ 
+ ## About Honeycomb
+ 
+ Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
+ 
+
+ The observability is being achieved by sending traces to the honeycomb UI, in which various queries are executed in order to analyse various conditions where the service is being used by the clients. 
+ 
+ Traces refers to the series of the flow of events that occurs when a request is being made and a response is given back. 
+ 
+ 
+![Honeycomb](images/spans2.png "Honeycomb")
+
+For example a client requesting data from the database as above.
+E refers to an event.
+A trace is the path from E1 to E4.
+
+Traces are further broken down into spans. 
+Spans can be defined as a single operation, i.e server requesting from database to obtain data and receives it (E2+E3). 
+Spans contain data which can be used for interpreting the performance.
+
+These traces contains metadata (span data) which can be captured by honeycomb and be shown graphically or in raw data.
+
+
+#### Honeycomb open-tracing proxy
+
+Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collect the zipkin formatted trace data and send to honeycomb. 
+
+![Honeycomb](images/structure.png "Open tracing")
