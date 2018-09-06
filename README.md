@@ -1072,7 +1072,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
    ![Honeycomb](images/table4.png "Honeycomb")  
    
    
-   -  You can click on any of the queries and run the query for that particular instant.
+   -  You can click on any of the boards and run the query for that particular instant.
+   
  ## About Honeycomb
  
  Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
