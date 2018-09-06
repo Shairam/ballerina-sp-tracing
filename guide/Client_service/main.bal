@@ -265,7 +265,7 @@ function main(string... args) {
                                 // Validate to check if student with given ID exist in the system
                                 message = "Maths: " + jsonPL[0]["maths"] .toString() + " English: " + jsonPL[0
                                     ][
-                                    "english"] .toString() + " Science: " + jsonPL[0]["science"] .toString() ;
+                                    "english"] .toString() + " Science: " + jsonPL[0]["science"] .toString();
                             }
                             else {
                                 message = "Student with the given ID doesn't exist";
