@@ -1140,7 +1140,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                                 
    ![Honeycomb](images/query16.png "Honeycomb")                     
                                 
-      The result of the above query is as follows : -
+   The result of the above query is as follows : -
                      
    ![Honeycomb](images/result16.png "Honeycomb")
         
