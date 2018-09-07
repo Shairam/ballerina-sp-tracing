@@ -36,36 +36,10 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 
 ### Implementing database
  - Start MYSQL server in your local machine.
- - Create a database with name `testdb` in your MYSQL localhost. If you want to skip the database implementation, then directly import the testdb.sql file into your localhost. You can find it in the Github repo.
- - Add the following queries to create two tables.
+ - Create a database with name `testdb` in your MYSQL localhost. If you want to skip the database implementation, then directly import the [testdb.sql]() file into your localhost. You can find it in the Github repo.
  
- ##### Student table
  
  ```
- CREATE TABLE `student` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `age` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `mobNo` int(20) NOT NULL,
-  `address` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
- ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1
- ``` 
- 
-  ##### Marks table 
-  
-  - After creating the marks table, insert some marks data through [http://localhost/phpmyadmin/](#http://localhost/phpmyadmin/)
-  
-  ```
-  CREATE TABLE `marks` (
-   `student_Id` int(11) NOT NULL,
-   `maths` int(3) NOT NULL,
-   `english` int(3) NOT NULL,
-   `science` int(3) NOT NULL,
-   PRIMARY KEY (`student_Id`),
-   CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`student_Id`) REFERENCES `student` (`id`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=latin1
-  ```
 
 ### Create the project structure
         

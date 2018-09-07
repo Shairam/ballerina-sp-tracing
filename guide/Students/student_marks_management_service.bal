@@ -1,10 +1,9 @@
-import ballerina / io;
-import ballerina / mysql;
-import ballerina / http;
-import ballerina / runtime;
-import ballerina / observe;
-import ballerina / log;
-
+import ballerina/io;
+import ballerina/mysql;
+import ballerina/http;
+import ballerina/runtime;
+import ballerina/observe;
+import ballerina/log;
 
 type Marks record {
     int student_Id,
@@ -15,42 +14,39 @@ type Marks record {
 };
 
 endpoint mysql:Client testDB {
-host: "localhost",
-port: 3306,
-name: "testdb",
-username: "root",
-password: "",
-poolOptions: { maximumPoolSize: 5 },
-dbOptions: { useSSL: false }
+    host: "localhost",
+    port: 3306,
+    name: "testdb",
+    username: "root",
+    password: "",
+    poolOptions: { maximumPoolSize: 5 },
+    dbOptions: { useSSL: false }
 };
-
-
 
 // This service listener
 endpoint http:Listener listener {
-port: 9191
+    port: 9191
 };
-
 
 // Service for the Student data service
 @http:ServiceConfig {
-basePath: "/marks"
+    basePath: "/marks"
 }
 service<http:Service> MarksData bind listener {
-@http:ResourceConfig {
-methods: ["GET"],
-path: "/getMarks/{stuId}"
-}
-// getMarks resource used to get student's marks
-getMarks(endpoint httpConnection, http:Request request, int stuId) {
-    http:Response response = new;
-    json result = findMarks(untaint stuId);
+    @http:ResourceConfig {
+        methods: ["GET"],
+        path: "/getMarks/{stuId}"
+    }
+    // getMarks resource used to get student's marks
+    getMarks(endpoint httpConnection, http:Request request, int stuId) {
+        http:Response response = new;
+        json result = findMarks(untaint stuId);
 
 
-    //Pass the obtained json object to the requested client
-    response.setJsonPayload(untaint result);
-    _ = httpConnection->respond(response);
-}
+        //Pass the obtained json object to the requested client
+        response.setJsonPayload(untaint result);
+        _ = httpConnection->respond(response);
+    }
 }
 
 documentation {
