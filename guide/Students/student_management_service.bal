@@ -5,23 +5,19 @@ import ballerina/runtime;
 import ballerina/observe;
 import ballerina/log;
 
-
 // type Student is created to store details of a student
-
 documentation {
   `Student` is a user defined record type in Ballerina program. Used to represent a student entity
 
-
 }
+
 type Student record {
     int id,
     int age,
     string name,
     int mobNo,
     string address,
-
 };
-
 
 
 endpoint http:Client self {
@@ -44,8 +40,8 @@ endpoint mysql:Client testDB {
     dbOptions: { useSSL: false }
 };
 
- //This service listener
-endpoint http:Listener listener {
+//This service listener
+endpoint http:Listener listener1 {
     port: 9090
 };
 
@@ -54,7 +50,7 @@ endpoint http:Listener listener {
 @http:ServiceConfig {
     basePath: "/records"
 }
-service<http:Service> StudentData bind listener {
+service<http:Service> StudentData bind listener1 {
 
     int errors = 0;
     int req_count = 0;
@@ -68,30 +64,26 @@ service<http:Service> StudentData bind listener {
         // Initialize an empty http response message
         req_count++;
         http:Response response;
-        map<string> mp = { "endpoint": "records/addStudent" };
         Student stuData;
 
-
-        //int spanId2 = check observe:startSpan("Getting request data", tags = mp);
 
         var payloadJson = check request.getJsonPayload();
         // Accepting the Json payload sent from a request
         stuData = check <Student>payloadJson;
         //Converting the payload to Student type
 
-        //_ = observe:finishSpan(spanId2);
 
         // Calling the function insertData to update database
         // int spanId3 = check observe:startSpan("Update database span", tags = mp);
         json ret = insertData(stuData.name, stuData.age, stuData.mobNo,
             stuData.address);
-        //_ = observe:finishSpan(spanId3);
+
         // Send the response back to the client with the returned json value from insertData function
         response.setJsonPayload(ret);
         _ = httpConnection->respond(response);
 
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests",  <string> req_count);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts",  <string> errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
     }
 
     @http:ResourceConfig {
@@ -110,14 +102,11 @@ service<http:Service> StudentData bind listener {
         json status = {};
 
 
-        // int spanId2 = check observe:startSpan("Database call span");
+         int spanId2 =  observe:startRootSpan("Database call span");
 
         var selectRet = testDB->select("SELECT * FROM student", Student, loadToMemory = true);
         //sending a request to mysql endpoint and getting a response with required data table
-
-        //  _ = observe:finishSpan(spanId2);
-        //_ = observe:finishSpan(chSpanId);
-
+        _ = observe:finishSpan(spanId2);
 
         table<Student> dt;
         // a table is declared with Student as its type
@@ -129,14 +118,11 @@ service<http:Service> StudentData bind listener {
         }
 
 
-        // int spanId3 =  check observe:startSpan("Row iteration span", tags = mp2);
         //student details displayed on server side for reference purpose
         io:println("Iterating data first time:");
         foreach row in dt {
             io:println("Student:" + row.id + "|" + row.name + "|" + row.age);
         }
-
-        // _ = observe:finishSpan(spanId3);
 
         // table is converted to json
         var jsonConversionRet = <json>dt;
@@ -153,8 +139,8 @@ service<http:Service> StudentData bind listener {
         _ = httpConnection->respond(response);
 
         _ = observe:finishSpan(chSpanId);
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests",  <string> req_count);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts",  <string> errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
 
     }
 
@@ -165,35 +151,20 @@ service<http:Service> StudentData bind listener {
     //viewStudent service to get all the students details and send to the requested user
     testError(endpoint httpConnection, http:Request request) {
         req_count++;
-        //int spanId = check observe:startSpan("check error");
+
         http:Response response;
 
 
         errors++;
         io:println(errors);
-         _ = observe:addTagToSpan(spanId = -1, "error_counts",  <string> errors);
-         _ = observe:addTagToSpan(spanId = -1, "tot_requests",  <string> req_count);
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
         log:printError("error test");
         response.setTextPayload("Test Error made");
         _ = httpConnection->respond(response);
-        //_ = observe:finishSpan(spanId);
+
     }
 
-
-    //testAnotherMethodError(endpoint httpConnection, http:Request request) {
-    //    req_count++;
-    //    int spanId = observe:startRootSpan("check error");
-    //    http:Response  response;
-    //
-    //    errors++;
-    //    io:println(errors);
-    //    _ = observe:addTagToSpan(spanId, "error_counts",  <string> errors2);
-    //    _ = observe:addTagToSpan(spanId, "tot_requests",  <string> req_count2);
-    //    log:printError("error test");
-    //    response.setTextPayload("Test Error made");
-    //    _ = httpConnection->respond(response);
-    //    _ = observe:finishSpan(spanId);
-    //}
 
     @http:ResourceConfig {
         methods: ["GET"],
@@ -217,8 +188,8 @@ service<http:Service> StudentData bind listener {
         response.setJsonPayload(ret);
         _ = httpConnection->respond(response);
 
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests",  <string> req_count);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts",  <string> errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
 
     }
 
@@ -232,15 +203,18 @@ service<http:Service> StudentData bind listener {
         http:Response response;
         json result;
 
-        int fsp = check observe:startSpan("First span");    //Self defined span for observability purposes
-        var requ = marksService->get("/marks/getMarks/" + untaint stuId);  //Request made for obtaining marks of the student with the respective stuId to marks Service.
+        int firstsp = check observe:startSpan("First span");
+        //Self defined span for observability purposes
+        var requ = marksService->get("/marks/getMarks/" + untaint stuId);
+        //Request made for obtaining marks of the student with the respective stuId to marks Service.
         match requ {
             http:Response response2 => {
-                var msg  = response2.getJsonPayload();              // Gets the Json object
+                var msg = response2.getJsonPayload();
+                // Gets the Json object
 
                 match msg {
-                    json js =>{
-                            result = js;
+                    json js => {
+                        result = js;
                     }
 
                     error er => {
@@ -253,13 +227,15 @@ service<http:Service> StudentData bind listener {
             }
         }
 
-        _ = observe:finishSpan(fsp);            // Stopping the previously started span.
+        _ = observe:finishSpan(firstsp);
+        // Stopping the previously started span.
 
-        response.setJsonPayload(untaint result);            //Sending the Json to the client.
+        response.setJsonPayload(untaint result);
+        //Sending the Json to the client.
         _ = httpConnection->respond(response);
 
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests",  <string> req_count);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts",  <string> errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
     }
 
     @http:ResourceConfig {
@@ -272,22 +248,16 @@ service<http:Service> StudentData bind listener {
         http:Response response;
         map<string> mp = { "endpoint": "/view/{studentId}" };
 
-
-        // int spanId = observe:startRootSpan("Parent");
-
-        // int spanid2 = check observe:startSpan("Get student span", tags = mp, parentSpanId = spanId);
         //findStudent function is called with stuId as parameter and get a return json object
         json result = findStudent(untaint stuId);
 
-        //  _ = observe:finishSpan(spanid2);
         //Pass the obtained json object to the request
         response.setJsonPayload(untaint result);
         _ = httpConnection->respond(response);
 
-        // _ = observe:finishSpan(spanId);
 
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests",  <string> req_count);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts",  <string> errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
 
     }
 
@@ -320,8 +290,6 @@ public function insertData(string name, int age, int mobNo, string address) retu
     // Insert data to SQL database by invoking update action
     //  int spanId = check observe:startSpan("update Database");
     var ret = testDB->update(sqlString, name, age, mobNo, address);
-    // _  = observe:finishSpan(spanId);
-
 
 
     // Use match operator to check the validity of the result from database
@@ -372,12 +340,11 @@ documentation {
 // Function to delete a student record with id
 public function deleteData(int stuId) returns (json) {
     json status = {};
-    // int spanId2 = check observe:startSpan("Database update span", tags = mp);
+
     string sqlString = "DELETE FROM student WHERE id = ?";
 
     // Delete existing data by invoking update action
     var ret = testDB->update(sqlString, stuId);
-    // _ = observe:finishSpan(spanId2);
     io:println(ret);
     match ret {
         int updateRowCount => {
@@ -415,13 +382,12 @@ public function findStudent(int stuId) returns (json) {
     json status = {};
 
 
-    // int spanId = check observe:startSpan("Select Data");
     string sqlString = "SELECT * FROM student WHERE id = " + stuId;
     // Getting student info of the given ID
 
     var ret = testDB->select(sqlString, Student, loadToMemory = true);
     //Invoking select operation in testDB
-    // _ = observe:finishSpan(spanId);
+
 
     //Assigning data obtained from db to a table
     table<Student> dt;
@@ -461,11 +427,9 @@ documentation {
 }
 // Function to get the generated Id of the student recently added
 public function getId(int mobNo) returns (table|error) {
-
-    //  int spanId = check observe:startSpan("Select student data");
     //Select data from database by invoking select action
     var ret2 = testDB->select("Select * FROM student WHERE mobNo = " + mobNo, Student, loadToMemory = true);
-    //  _ = observe:finishSpan(spanId);
+
     table<Student> dt;
     match ret2 {
         table tableReturned => dt = tableReturned;
