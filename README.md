@@ -966,7 +966,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    
    #### Average response time
    
-  ######Per service
+  ###### Per service
   
                 Query parameters use for each category:-
                     
@@ -982,9 +982,10 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    ![Honeycomb](images/result7.png "Honeycomb")
    
    
-  ######Per resource
-   This will include self defined spans as well.
-                 Query parameters use for each category:-
+  ###### Per resource
+   >This will include self defined spans as well.
+               
+               Query parameters use for each category:-
                
                            1. BREAK DOWN - name
                            2. CALCULATE PER GROUP - AVG(durationMs)
