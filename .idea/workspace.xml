@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="40c4e6fb-a6cd-46ea-a66d-960c1fa12f9e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guide/Students/student_marks_management_service.bal" beforeDir="false" afterPath="$PROJECT_DIR$/guide/Students/student_marks_management_service.bal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide/Client_service/client_main.bal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide/Students/.ballerina/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide/Students/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide/Students/Ballerina.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide/Students/student_management_service.bal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/guide/Students/student_marks_management_service.bal" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +23,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="525">
-                <caret line="38" column="152" lean-forward="true" selection-start-line="38" selection-start-column="152" selection-end-line="38" selection-end-column="152" />
+              <first_editor relative-caret-position="420">
+                <caret line="908" column="3" lean-forward="true" selection-start-line="908" selection-start-column="3" selection-end-line="908" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -27,28 +32,28 @@
         </entry>
       </file>
       <file leaf-file-name="student_management_service.bal" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guide/Students/student_management_service.bal">
+        <entry file="file://$PROJECT_DIR$/guide/students/student_management_service.bal">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1510">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="526">
+              <caret line="297" lean-forward="true" selection-start-line="297" selection-end-line="297" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="student_marks_management_service.bal" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guide/Students/student_marks_management_service.bal">
+        <entry file="file://$PROJECT_DIR$/guide/students/student_marks_management_service.bal">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-301">
-              <caret line="23" column="2" lean-forward="true" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
+            <state relative-caret-position="1">
+              <caret line="42" column="47" lean-forward="true" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="client_main.bal" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/guide/Client_service/client_main.bal">
+        <entry file="file://$PROJECT_DIR$/guide/client_service/client_main.bal">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="271" column="136" lean-forward="true" selection-start-line="271" selection-start-column="31" selection-end-line="271" selection-end-column="136" />
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-end-line="243" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -110,8 +115,9 @@
         <option value="$PROJECT_DIR$/guide/Students/records.bal" />
         <option value="$PROJECT_DIR$/guide/Students/records2.bal" />
         <option value="$PROJECT_DIR$/guide/Students/student_management_service.bal" />
-        <option value="$PROJECT_DIR$/guide/Client_service/client_main.bal" />
         <option value="$PROJECT_DIR$/guide/Students/student_marks_management_service.bal" />
+        <option value="$PROJECT_DIR$/guide/Client_service/client_main.bal" />
+        <option value="$PROJECT_DIR$/guide/students/student_management_service.bal" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -152,13 +158,13 @@
               <item name="Ballerina-Honeycomb" type="b2602c69:ProjectViewProjectNode" />
               <item name="Ballerina-Honeycomb" type="462c0819:PsiDirectoryNode" />
               <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="Client_service" type="462c0819:PsiDirectoryNode" />
+              <item name="client_service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Ballerina-Honeycomb" type="b2602c69:ProjectViewProjectNode" />
               <item name="Ballerina-Honeycomb" type="462c0819:PsiDirectoryNode" />
               <item name="guide" type="462c0819:PsiDirectoryNode" />
-              <item name="Students" type="462c0819:PsiDirectoryNode" />
+              <item name="students" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Ballerina-Honeycomb" type="b2602c69:ProjectViewProjectNode" />
@@ -286,33 +292,33 @@
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="7" weight="0.32946378" />
+      <window_info anchor="right" id="Maven Projects" order="13" weight="0.32924226" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32843652" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32948583" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.34530938" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3452256" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4963274" weight="0.17929563" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4963274" weight="0.178762" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info id="Structure" order="1" sideWeight="0.5036726" side_tool="true" weight="0.17357656" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Palette" order="5" />
       <window_info id="Designer" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="9" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="9" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4963274" weight="0.17929563" />
       <window_info id="Structure" order="1" sideWeight="0.5036726" side_tool="true" weight="0.17357656" />
@@ -324,14 +330,14 @@
       <window_info id="Capture Tool" order="6" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
-      <window_info anchor="right" id="Theme Preview" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="11" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3462749" />
-      <window_info anchor="right" id="Maven Projects" order="7" weight="0.32946378" />
+      <window_info anchor="right" id="Maven Projects" order="12" weight="0.32946378" />
       <window_info id="Favorites" order="5" side_tool="true" />
     </layout>
     <layout-to-restore>
@@ -376,33 +382,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="-153">
-            <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="900">
-            <caret line="60" column="33" lean-forward="true" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guide/Client_service/client_main.bal">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4410">
-          <caret line="294" column="9" lean-forward="true" selection-start-line="294" selection-start-column="9" selection-end-line="294" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Students/records.bal" />
     <entry file="file://$PROJECT_DIR$/Students/main.bal" />
     <entry file="file://$PROJECT_DIR$/Students/records.bal" />
@@ -491,30 +470,51 @@
     <entry file="file://$PROJECT_DIR$/guide/Students/records2.bal" />
     <entry file="file://$PROJECT_DIR$/guide/Students/student_management_service.bal">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1510">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/guide/Client_service/client_main.bal">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="271" column="136" lean-forward="true" selection-start-line="271" selection-start-column="31" selection-end-line="271" selection-end-column="136" />
+        <state relative-caret-position="5550">
+          <caret line="370" column="29" lean-forward="true" selection-start-line="370" selection-start-column="29" selection-end-line="370" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/guide/Students/student_marks_management_service.bal">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-301">
-          <caret line="23" column="2" lean-forward="true" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
+        <state relative-caret-position="901">
+          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guide/Client_service/client_main.bal">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guide/client_service/client_main.bal">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-end-line="243" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guide/students/student_marks_management_service.bal">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1">
+          <caret line="42" column="47" lean-forward="true" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/guide/students/student_management_service.bal">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="297" lean-forward="true" selection-start-line="297" selection-end-line="297" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="525">
-            <caret line="38" column="152" lean-forward="true" selection-start-line="38" selection-start-column="152" selection-end-line="38" selection-end-column="152" />
+          <first_editor relative-caret-position="420">
+            <caret line="908" column="3" lean-forward="true" selection-start-line="908" selection-start-column="3" selection-end-line="908" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>

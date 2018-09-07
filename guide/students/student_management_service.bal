@@ -19,11 +19,6 @@ type Student record {
     string address,
 };
 
-
-endpoint http:Client self {
-    url: " http://localhost:9090"
-};
-
 //End point for marks details client
 endpoint http:Client marksService {
     url: " http://localhost:9191"
@@ -93,17 +88,11 @@ service<http:Service> StudentData bind listener1 {
     //viewStudent service to get all the students details and send to the requested user
     viewStudents(endpoint httpConnection, http:Request request) {
         req_count++;
-
         int chSpanId = check observe:startSpan("Check span 1");
-
-        map<string> mp = { "Port": "9090" };
-        map<string> mp2 = { "endpoint": "/records/viewAll" };
         http:Response response;
         json status = {};
 
-
-         int spanId2 =  observe:startRootSpan("Database call span");
-
+        int spanId2 = observe:startRootSpan("Database call span");
         var selectRet = testDB->select("SELECT * FROM student", Student, loadToMemory = true);
         //sending a request to mysql endpoint and getting a response with required data table
         _ = observe:finishSpan(spanId2);
@@ -116,7 +105,6 @@ service<http:Service> StudentData bind listener1 {
             error e => io:println("Select data from student table failed: "
                     + e.message);
         }
-
 
         //student details displayed on server side for reference purpose
         io:println("Iterating data first time:");
@@ -151,9 +139,7 @@ service<http:Service> StudentData bind listener1 {
     //viewStudent service to get all the students details and send to the requested user
     testError(endpoint httpConnection, http:Request request) {
         req_count++;
-
         http:Response response;
-
 
         errors++;
         io:println(errors);
@@ -162,9 +148,7 @@ service<http:Service> StudentData bind listener1 {
         log:printError("error test");
         response.setTextPayload("Test Error made");
         _ = httpConnection->respond(response);
-
     }
-
 
     @http:ResourceConfig {
         methods: ["GET"],
@@ -173,24 +157,17 @@ service<http:Service> StudentData bind listener1 {
     //deleteStudents service for deleteing a student using id
     deleteStudent(endpoint httpConnection, http:Request request, int stuId) {
         req_count++;
-        map<string> mp = { "endpoint": "/records/deleteStu/{stuId}" };
-
         http:Response response;
         json status = {};
 
-
         //calling deleteData function with id as parameter and get a return json object
         var ret = deleteData(stuId);
-
-
         io:println(ret);
         //Pass the obtained json object to the request
         response.setJsonPayload(ret);
         _ = httpConnection->respond(response);
-
         _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
         _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
-
     }
 
     @http:ResourceConfig {
@@ -211,7 +188,6 @@ service<http:Service> StudentData bind listener1 {
             http:Response response2 => {
                 var msg = response2.getJsonPayload();
                 // Gets the Json object
-
                 match msg {
                     json js => {
                         result = js;
@@ -226,62 +202,28 @@ service<http:Service> StudentData bind listener1 {
                 // Print any error caused
             }
         }
+        _ = observe:finishSpan(firstsp);   // Stopping the previously started span.
 
-        _ = observe:finishSpan(firstsp);
-        // Stopping the previously started span.
-
-        response.setJsonPayload(untaint result);
-        //Sending the Json to the client.
+            response.setJsonPayload(untaint result);    //Sending the Json to the client.
         _ = httpConnection->respond(response);
 
         _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
         _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
     }
-
-    @http:ResourceConfig {
-        methods: ["GET"],
-        path: "/view/{stuId}"
-    }
-    //viewOne service to find the details of a particular student using id;
-    viewOne(endpoint httpConnection, http:Request request, int stuId) {
-        req_count++;
-        http:Response response;
-        map<string> mp = { "endpoint": "/view/{studentId}" };
-
-        //findStudent function is called with stuId as parameter and get a return json object
-        json result = findStudent(untaint stuId);
-
-        //Pass the obtained json object to the request
-        response.setJsonPayload(untaint result);
-        _ = httpConnection->respond(response);
-
-
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
-
-    }
-
-
-
 }
 
 // Function to insert values to database
 
 documentation {
   `insertData` is a function to add data to student records database
-
-    P{{name}} This is the name of the student to be added.
-
+   P{{name}} This is the name of the student to be added.
    P{{age}} Student age
-
    P{{mobNo}} Student mobile number
-
    P{{address}} Student address.
-
    R{{}} This function returns a json object. If data is added it returns json containing a status and id of student added.
             If data is not added , it returns the json containing a status and error message.
-
 }
+
 public function insertData(string name, int age, int mobNo, string address) returns (json) {
     json updateStatus;
     int uid;
@@ -291,15 +233,11 @@ public function insertData(string name, int age, int mobNo, string address) retu
     //  int spanId = check observe:startSpan("update Database");
     var ret = testDB->update(sqlString, name, age, mobNo, address);
 
-
     // Use match operator to check the validity of the result from database
     match ret {
         int updateRowCount => {
-
-
-            var result = getId(untaint mobNo);
+         var result = getId(untaint mobNo);
             // Getting info of the student added
-
             match result {
                 table dt => {
                     while (dt.hasNext()) {
@@ -311,7 +249,6 @@ public function insertData(string name, int age, int mobNo, string address) retu
                         }
                     }
                 }
-
                 error er => {
                     io:println(er.message);
                 }
@@ -329,18 +266,14 @@ public function insertData(string name, int age, int mobNo, string address) retu
 
 documentation {
   `deleteData` is a function to delete a student's data from student records database
-
     P{{stuId}} This is the id of the student to be deleted.
-
-   R{{}} This function returns a json object. If data is added it returns json containing a status.
-            If data is not added , it returns the json containing a status and error message.
-
+    R{{}} This function returns a json object. If data is deleted it returns json containing a status.
+            If data is not deleted , it returns the json containing a status and error message.
 }
 
 // Function to delete a student record with id
 public function deleteData(int stuId) returns (json) {
     json status = {};
-
     string sqlString = "DELETE FROM student WHERE id = ?";
 
     // Delete existing data by invoking update action
@@ -360,85 +293,26 @@ public function deleteData(int stuId) returns (json) {
             io:println(err.message);
         }
     }
-
-
-    return status;
-
-
-}
-
-documentation {
-  `findStudent` is as function to find a student's data from the student record database
-
-    P{{stuId}} This is the id of the student to be found.
-
-   R{{}} This function returns a json object. If data is added it returns json containing a table of data which is converted to json format.
-            If data is not added , it returns the json containing a status and error message.
-
-}
-
-//Function to get a student's details using id
-public function findStudent(int stuId) returns (json) {
-    json status = {};
-
-
-    string sqlString = "SELECT * FROM student WHERE id = " + stuId;
-    // Getting student info of the given ID
-
-    var ret = testDB->select(sqlString, Student, loadToMemory = true);
-    //Invoking select operation in testDB
-
-
-    //Assigning data obtained from db to a table
-    table<Student> dt;
-    match ret {
-        table tableReturned => dt = tableReturned;
-        error e => io:println("Select data from student table failed: "
-                + e.message);
-    }
-
-
-    //converting the obtained data in table format to json data
-
-    var jsonConversionRet = <json>dt;
-    match jsonConversionRet {
-        json jsonRes => {
-            status = jsonRes;
-        }
-        error e => {
-            status = { "Status": "Data Not available", "Error": e.message };
-        }
-    }
-
     return status;
 }
-
-
 
 documentation {
   `getId` is a function to get the Id of the student added in latest.
-
-    P{{mobNo}} This is the mobile number of the student added which is passed as parameter to build up the query.
-
-
-
+   P{{mobNo}} This is the mobile number of the student added which is passed as parameter to build up the query.
    R{{}} This function returns either a table which has only one row of the student details or an error.
-
 }
+
 // Function to get the generated Id of the student recently added
 public function getId(int mobNo) returns (table|error) {
     //Select data from database by invoking select action
     var ret2 = testDB->select("Select * FROM student WHERE mobNo = " + mobNo, Student, loadToMemory = true);
-
     table<Student> dt;
     match ret2 {
         table tableReturned => dt = tableReturned;
         error e => io:println("Select data from student table failed: "
                 + e.message);
     }
-
     return dt;
-
 }
 
 
