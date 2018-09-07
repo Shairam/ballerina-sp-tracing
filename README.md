@@ -4,11 +4,11 @@
 Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
 
 > In this guide you will learn how to integrate your service with Honeycomb in order to interpret your services' performances.
-
+[About Honeycomb](#about-honeycomb)
 
 The following are the sections available in this guide.
 
-- [What you'll build](#what-youll-build)
+- [What you'll build](#what-you’ll-build)
 - [Prerequisites](#prerequisites)
 - [Implementation](#implementation)
 - [Testing](#testing)
@@ -1034,7 +1034,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
      
   You can perform some detailed queries in order to look deep in the performance of your services. For example
   
-   - The below query will help you find the number of requests per resource (will include self defined spans as well)
+   - The below query will help you find the number of requests per resource (will include self defined spans as well).
    
             
             Query parameters use for each category:-
@@ -1042,14 +1042,30 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
                           1. BREAK DOWN - name
                           2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId)
                           3. FILTER - name does-not-start-with ballerina/ 
-                          4. LIMIT - 100
+                          
             
          We filter out the other default ballerina resource using the filter query.
+         
+   ![Honeycomb](images/query1.png "Honeycomb")  
     
-   The result of the above query is as below ; -
+   The result of the above query is as below : -
  
    ![Honeycomb](images/traces4.png "Honeycomb")
    
+   
+   - The below query will help you find the average response time per service.
+   
+                 Query parameters use for each category:-
+            
+                        
+                        1. CALCULATE PER GROUP - AVG(durationMs)
+                        2. serviceName - studentdata
+   
+   ![Honeycomb](images/query2.png "Honeycomb")                     
+                 
+   The result of the above query is as follows : -
+      
+   ![Honeycomb](images/result2.png "Honeycomb")
    
    
    ##### Honeycomb UI Boards
@@ -1073,6 +1089,10 @@ $ ballerina run --config <path-to-conf>/ballerina.conf Students
    
    
    -  You can click on any of the boards and run the query for that particular instant.
+   
+      ![Honeycomb](images/table5.png "Honeycomb")  
+
+   
    
  ## About Honeycomb
  
