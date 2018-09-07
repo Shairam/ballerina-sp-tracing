@@ -634,7 +634,6 @@ documentation {
             If data is not added , it returns the json containing a status and error message.
 
 }
-
 public function findMarks(int stuId) returns (json){
     json status = {};
 
@@ -648,12 +647,18 @@ public function findMarks(int stuId) returns (json){
      _ = observe:finishSpan(spanId);    // Stopping the previously started span
 
     //Assigning data obtained from db to a table
-    table<Marks> dt;
+    table<Marks> datatable;
     match ret {
-        table tableReturned => dt = tableReturned;
-        error e => io:println("Select data from student table failed: "
-                + e.message);
+        table tableReturned => datatable = tableReturned;
+        error e => {
+            io:println("Select data from student table failed: "
+                    + e.message);
+
+            status = { "Status": "Select data from student table failed: ", "Error": e.message} ;
+         return status;
+        }
     }
+
 
 
     //converting the obtained data in table format to json data
@@ -949,7 +954,7 @@ function main(string... args) {
                                     "english"] .toString() + " Science: " + jsonPL[0]["science"] .toString();
                             }
                             else {
-                                message = "Student with the given ID doesn't exist";
+                                 message = "Data not available. Check if student's mark is added or student might not be in our                             system.";
                             }
 
                             io:println();
