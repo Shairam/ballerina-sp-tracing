@@ -944,6 +944,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    
    #### Mostly hit resources 
    This will include self defined spans as well.
+              
                 Query parameters use for each category:-
             
                            1. BREAK DOWN - name
@@ -951,6 +952,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                            3. FILTER - name does-not-start-with ballerina/
                            4. ORDER - COUNT_DISTINCT(traceId) desc
                            5. LIMIT - 100
+                           
+                           
                   We filter out the other default ballerina resource using the filter query.
                                 
    ![Honeycomb](images/query6.png "Honeycomb")                     
