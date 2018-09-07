@@ -954,7 +954,7 @@ function main(string... args) {
                                     "english"] .toString() + " Science: " + jsonPL[0]["science"] .toString();
                             }
                             else {
-                                 message = "Data not available. Check if student's mark is added or student might not be in our                             system.";
+                                 message = "Data not available. Check if student's mark is added or student might not be in our system.";
                             }
 
                             io:println();
