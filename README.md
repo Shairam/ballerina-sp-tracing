@@ -1,45 +1,18 @@
   
-## Ballerina- Honeycomb
+## Integration with Honeycomb
 
-
- Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. 
- 
-
- The observability is being achieved by sending traces to the honeycomb UI, in which various queries are executed in order to analyse various conditions where the service is being used by the clients. 
- 
- Traces refers to the series of the flow of events that occurs when a request is being made and a response is given back. 
+ Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically.[Read more about Honeycomb](#about-honeycomb)
  
  
-![Honeycomb](images/spans2.png "Honeycomb")
-
-
-
-For example a client requesting data from the database as above.
-E refers to an event.
-A trace is the path from E1 to E4.
-
-Traces are further broken down into spans. 
-Spans can be defined as a single operation, i.e server requesting from database to obtain data and receives it (E2+E3). 
-Spans contain data which can be used for interpreting the performance.
-
-These traces contains metadata (span data) which can be captured by honeycomb and be shown graphically or in raw data.
-
-
-#### Honeycomb open-tracing proxy
-
-Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collect the zipkin formatted trace data and send to honeycomb. 
-
-![Honeycomb](images/structure.png "Open tracing")
-
-
-
 The following are the sections available in this guide.
 
 - [What you'll build](#what-you’ll-build)
 - [Prerequisites](#prerequisites)
 - [Implementation](#implementation)
 - [Testing](#testing)
-- [Testing with Honeycomb](#testing-with-honeycomb)
+- [Configuration with Honeycomb](#testing-with-honeycomb)
+  - [Traces](#views-of-traces)
+  - [Metrics](#metrics)
 - [Deployment](#deployment)
 
 
@@ -1197,4 +1170,30 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    -  You can click on any of the boards and run the query for that particular instant.
    
       ![Honeycomb](images/table5.png "Honeycomb")  
+      
+ ## About Honeycomb
+The observability is being achieved by sending traces to the honeycomb UI, in which various queries are executed in order to analyse various conditions where the service is being used by the clients. 
+ 
+ Traces refers to the series of the flow of events that occurs when a request is being made and a response is given back. 
+ 
+ 
+![Honeycomb](images/spans2.png "Honeycomb")
 
+
+
+For example a client requesting data from the database as above.
+E refers to an event.
+A trace is the path from E1 to E4.
+
+Traces are further broken down into spans. 
+Spans can be defined as a single operation, i.e server requesting from database to obtain data and receives it (E2+E3). 
+Spans contain data which can be used for interpreting the performance.
+
+These traces contains metadata (span data) which can be captured by honeycomb and be shown graphically or in raw data.
+
+
+#### Honeycomb open-tracing proxy
+
+Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collect the zipkin formatted trace data and send to honeycomb. 
+
+![Honeycomb](images/structure.png "Open tracing")
