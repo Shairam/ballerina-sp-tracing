@@ -1151,7 +1151,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    ![Honeycomb](images/result16.png "Honeycomb")
         
         
-   ######Per resource
+   ###### Per resource
    This will include all self defined span as well.
    Set the time period to 1 hour as instructed above.
         
