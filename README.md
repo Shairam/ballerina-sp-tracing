@@ -1046,6 +1046,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                         2. CALCULATE PER GROUP - AVG(durationMs), COUNT_DISTINCT(traceId)
                         3. FILTER - name does-not-start-with ballerina/     
                  
+                    We filter out the other default ballerina resource using the filter query.
                              
    ![Honeycomb](images/query12.png "Honeycomb")                     
                            
@@ -1064,6 +1065,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                           2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId), AVG(durationMs)
                           3. FILTER - name does-not-start-with ballerina/ 
                           4. LIMIT - 100 
+                          
+                      We filter out the other default ballerina resource using the filter query.
                           
   ![Honeycomb](images/query13.png "Honeycomb")                     
                             
@@ -1090,6 +1093,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                           2. CALCULATE PER GROUP - AVG(durationMs), COUNT_DISTINCT(traceId)
                           3. FILTER - name does-not-start-with ballerina/     
                    
+                         We filter out the other default ballerina resource using the filter query.
                              
    ![Honeycomb](images/query14.png "Honeycomb")                     
                              
@@ -1108,6 +1112,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                          2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId), AVG(durationMs)
                          3. FILTER - name does-not-start-with ballerina/ 
                          4. LIMIT - 100 
+                         
+                       We filter out the other default ballerina resource using the filter query.
                             
    ![Honeycomb](images/query15.png "Honeycomb")                     
                               
@@ -1115,8 +1121,6 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                    
    ![Honeycomb](images/result15.png "Honeycomb")
    
-   
-   /////
    
    
    #### Last 1 hour summary
@@ -1135,8 +1139,10 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                       
                           1. BREAK DOWN - serviceName
                           2. CALCULATE PER GROUP - AVG(durationMs), COUNT_DISTINCT(traceId)
-                          3. FILTER - name does-not-start-with ballerina/     
-                      
+                          3. FILTER - name does-not-start-with ballerina/   
+                          
+                            
+                      We filter out the other default ballerina resource using the filter query. 
                                 
    ![Honeycomb](images/query16.png "Honeycomb")                     
                                 
@@ -1147,7 +1153,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
         
    ######Per resource
    This will include all self defined span as well.
-   Set the time period to 5 minutes as instructed above.
+   Set the time period to 1 hour as instructed above.
         
                   Query parameters use for each category:-
                  
@@ -1155,6 +1161,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                           2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId), AVG(durationMs)
                           3. FILTER - name does-not-start-with ballerina/ 
                           4. LIMIT - 100 
+                          
+                       We filter out the other default ballerina resource using the filter query.
                                
    ![Honeycomb](images/query17.png "Honeycomb")                     
                                  
