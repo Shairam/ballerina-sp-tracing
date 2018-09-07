@@ -1033,7 +1033,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    
    #### Last 1 minute summary
       
-   ######Per service
+   ###### Per service
       
    To find the total request count per service with average response time for the last 1 minute :-
    
@@ -1059,7 +1059,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    ![Honeycomb](images/result12.png "Honeycomb")
    
    
-   ######Per resource
+   ###### Per resource
    This will include all self defined span as well when finding the number of requests per resource wit average response time.
    Set the time period to 1 minute as instructed above.
    
