@@ -1033,7 +1033,8 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    ######Per service
       
    To find the total request count per service with average response time for the last 1 minute :-
-   Duration can be set on the top right corner of the query builder. You can customize the 
+   
+   >Duration can be set on the top right corner of the query builder. You can customize the 
    time period within which you wanted to get the metrics.
       
    ![Honeycomb](images/time1.png "Honeycomb")
@@ -1080,7 +1081,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    ###### Per service
        
    To find the total request count per service with average response time for the last 5 minutes :-
-   Duration can be set on the top right corner of the query builder. You can customize the 
+  > Duration can be set on the top right corner of the query builder. You can customize the 
    time period within which you wanted to get the metrics.
         
    ![Honeycomb](images/time2.png "Honeycomb")
@@ -1128,7 +1129,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
    ###### Per service
           
    To find the total request count per service with average response time for the last 1 hour :-
-   Duration can be set on the top right corner of the query builder. You can customize the 
+  > Duration can be set on the top right corner of the query builder. You can customize the 
    time period within which you wanted to get the metrics.
            
    ![Honeycomb](images/time3.png "Honeycomb")
