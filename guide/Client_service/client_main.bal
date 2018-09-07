@@ -61,7 +61,7 @@ function main(string... args) {
                     //obtaining the result from the response received
                     match msg {
                         json jsonPL => {
-                            string message = "Status: " + jsonPL["Status"] .toString() + "/n Added Student Id :- " +
+                            string message = "Status: " + jsonPL["Status"] .toString() + " Added Student Id :- " +
                                 jsonPL["id"].toString();
                             //Extracting data from json received and displaying
                             io:println(message);
@@ -261,6 +261,7 @@ function main(string... args) {
                     match msg {
                         json jsonPL => {
                             string message;
+
                             if (lengthof jsonPL >= 1) {
                                 // Validate to check if student with given ID exist in the system
                                 message = "Maths: " + jsonPL[0]["maths"] .toString() + " English: " + jsonPL[0
@@ -268,7 +269,7 @@ function main(string... args) {
                                     "english"] .toString() + " Science: " + jsonPL[0]["science"] .toString();
                             }
                             else {
-                                message = "Student with the given ID doesn't exist";
+                                message = "Data not available. Check if student's mark is added or student might not be in our system.";
                             }
 
                             io:println();

@@ -76,17 +76,22 @@ public function findMarks(int stuId) returns (json){
      _ = observe:finishSpan(spanId);    // Stopping the previously started span
 
     //Assigning data obtained from db to a table
-    table<Marks> dt;
+    table<Marks> datatable;
     match ret {
-        table tableReturned => dt = tableReturned;
-        error e => io:println("Select data from student table failed: "
-                + e.message);
+        table tableReturned => datatable = tableReturned;
+        error e => {
+            io:println("Select data from student table failed: "
+                    + e.message);
+
+            status = { "Status": "Select data from student table failed: ", "Error": e.message} ;
+         return status;
+        }
     }
 
 
     //converting the obtained data in table format to json data
 
-    var jsonConversionRet = <json>dt;
+    var jsonConversionRet = <json>datatable;
     match jsonConversionRet {
         json jsonRes => {
             status = jsonRes;
