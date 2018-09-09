@@ -855,7 +855,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
     
    The result of the above query is as below : -
  
-   ![Honeycomb](images/traces4.png "Honeycomb")
+   ![Honeycomb](images/result1.png "Honeycomb")
    
    
    ###### Per service 
@@ -929,7 +929,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                            
                   We filter out the other default ballerina resource using the filter query.
                                 
-   ![Honeycomb](images/query6.png "Honeycomb")                     
+   ![Honeycomb](images/query6.png "Honeycomb")                    
                     
    The result of the above query is as follows : -
          
