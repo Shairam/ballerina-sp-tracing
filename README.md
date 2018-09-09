@@ -13,7 +13,7 @@ The following are the sections available in this guide.
 - [Configuration with Honeycomb](#testing-with-honeycomb)
   - [Traces](#views-of-traces)
   - [Metrics](#metrics)
-- [Deployment](#deployment)
+
 
 
 ## What you’ll build 
@@ -1186,7 +1186,7 @@ E refers to an event.
 A trace is the path from E1 to E4.
 
 Traces are further broken down into spans. 
-Spans can be defined as a single operation, i.e server requesting from database to obtain data and receives it (E2+E3). 
+Spans can be defined as a single operation, i.e server requesting from database to obtain data and receiving it (E2+E3). 
 Spans contain data which can be used for interpreting the performance.
 
 These traces contains metadata (span data) which can be captured by honeycomb and be shown graphically or in raw data.
@@ -1194,6 +1194,6 @@ These traces contains metadata (span data) which can be captured by honeycomb an
 
 #### Honeycomb open-tracing proxy
 
-Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collect the zipkin formatted trace data and send to honeycomb. 
+Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collects the zipkin formatted trace data and sends to honeycomb. 
 
 ![Honeycomb](images/structure.png "Open tracing")
