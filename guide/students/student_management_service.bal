@@ -4,6 +4,7 @@ import ballerina/http;
 import ballerina/runtime;
 import ballerina/observe;
 import ballerina/log;
+import ballerina/soap;
 
 // type Student is created to store details of a student
 documentation {

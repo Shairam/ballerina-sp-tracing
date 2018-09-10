@@ -47,13 +47,12 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
  For the purpose of this guide, let's use the following package structure.
         
     
-            ballerina-honeycomb
-             └── guide
+    ballerina-honeycomb
+           └── guide
                 ├── students
                 │   ├── student_management_service.bal
                 │   ├── student_marks_management_service.bal
-                │   ├── main.bal  
-                |   └── client_service
+                ├── client_service
                 |         └── client_main.bal
                 └── ballerina.conf
         
