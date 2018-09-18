@@ -7,8 +7,6 @@ import ballerina/log;
 
 
 // type Student is created to store details of a student
-
-
 documentation {
   `Student` is a user defined record type in Ballerina program. Used to represent a student entity
 }

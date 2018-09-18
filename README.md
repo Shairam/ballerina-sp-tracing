@@ -130,7 +130,7 @@ endpoint mysql:Client testDB {
 
 //This service listener
 endpoint http:Listener listener1 {
-    port: 9090
+    port: 9292
 };
 
 
@@ -431,7 +431,7 @@ type Marks record {
 
 };
 
-endpoint mysql:Client testDB {
+endpoint mysql:Client testDB1 {
     host: "localhost",
     port: 3306,
     name: "testdb",
@@ -482,7 +482,7 @@ public function findMarks(int stuId) returns (json) {
     string sqlString = "SELECT * FROM marks WHERE student_Id = " + stuId;
     // Getting student marks of the given ID
     io:println(stuId);
-    var ret = testDB->select(sqlString, Marks, loadToMemory = true);
+    var ret = testDB1->select(sqlString, Marks, loadToMemory = true);
     //Invoking select operation in testDB
     _ = observe:finishSpan(spanId);
     // Stopping the previously started span
@@ -528,7 +528,7 @@ import ballerina/http;
 import ballerina/log;
 
 endpoint http:Client studentData {
-    url: " http://localhost:9090"
+    url: " http://localhost:9292"
 };
 
 function main(string... args) {
