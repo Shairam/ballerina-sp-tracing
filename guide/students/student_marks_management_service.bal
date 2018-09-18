@@ -13,7 +13,7 @@ type Marks record {
 
 };
 
-endpoint mysql:Client testDB {
+endpoint mysql:Client testDB1 {
     host: "localhost",
     port: 3306,
     name: "testdb",
@@ -64,7 +64,7 @@ public function findMarks(int stuId) returns (json) {
     string sqlString = "SELECT * FROM marks WHERE student_Id = " + stuId;
     // Getting student marks of the given ID
     io:println(stuId);
-    var ret = testDB->select(sqlString, Marks, loadToMemory = true);
+    var ret = testDB1->select(sqlString, Marks, loadToMemory = true);
     //Invoking select operation in testDB
     _ = observe:finishSpan(spanId);
     // Stopping the previously started span

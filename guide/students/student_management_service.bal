@@ -4,12 +4,13 @@ import ballerina/http;
 import ballerina/runtime;
 import ballerina/observe;
 import ballerina/log;
-import ballerina/soap;
+
 
 // type Student is created to store details of a student
+
+
 documentation {
   `Student` is a user defined record type in Ballerina program. Used to represent a student entity
-
 }
 
 type Student record {
@@ -19,7 +20,6 @@ type Student record {
     int mobNo,
     string address,
 };
-
 //End point for marks details client
 endpoint http:Client marksService {
     url: " http://localhost:9191"
@@ -38,7 +38,7 @@ endpoint mysql:Client testDB {
 
 //This service listener
 endpoint http:Listener listener1 {
-    port: 9090
+    port: 9292
 };
 
 
@@ -215,6 +215,7 @@ service<http:Service> StudentData bind listener1 {
 
 // Function to insert values to database
 
+
 documentation {
   `insertData` is a function to add data to student records database
    P{{name}} This is the name of the student to be added.
@@ -223,7 +224,8 @@ documentation {
    P{{address}} Student address.
    R{{}} This function returns a json object. If data is added it returns json containing a status and id of student added.
             If data is not added , it returns the json containing a status and error message.
-}
+  }
+
 
 public function insertData(string name, int age, int mobNo, string address) returns (json) {
     json updateStatus;

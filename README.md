@@ -11,8 +11,8 @@ The following are the sections available in this guide.
 - [Implementation](#implementation)
 - [Testing](#testing)
 - [Configuration with Honeycomb](#testing-with-honeycomb)
-  - [Traces](#views-of-traces)
-  - [Metrics](#metrics)
+     - [Traces](#views-of-traces)
+     - [Metrics](#metrics)
 
 
 
@@ -800,27 +800,27 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
  $ ballerina run client_service
  ``` 
  
- ### Testing with Honeycomb
+### Testing with Honeycomb
  
- ### Views of traces
+#### Views of traces
  After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset.
 
    When you are in your dataset in Honeycomb UI you get to see a button called `New query`, and when you click on that 
    you can write your own queries on the metrics that you have received.
  - You are expected to see the traces as below when you include traceId in the breakdown category.
  
-     ![Honeycomb](images/traces1.png "Honeycomb")
+![Honeycomb](images/traces1.png "Honeycomb")
  
  - To view a particular trace click on the traceId column. And you will see as below
  
-    ![Honeycomb](images/traces2.png "Honeycomb")
+![Honeycomb](images/traces2.png "Honeycomb")
     
  - To view span details with metrics click on a particular span and you are expected to see as below
  
-     ![Honeycomb](images/traces3.png "Honeycomb")
+![Honeycomb](images/traces3.png "Honeycomb")
      
      
-  ### Metrics
+#### Metrics
      
   You can perform some detailed queries in order to look deep in the performance of your services. Here are some examples:-
   
@@ -835,9 +835,9 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
   - [Last 5 minutes summary](#last-5-minutes-summary)
   - [Last 1 hour summary](#last-1-hour-summary) 
   
-  ##### Total requests
+##### Total requests
    
-   ###### Per resource 
+###### Per resource 
    This will include self defined spans as well
    
             
@@ -850,14 +850,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
             
          We filter out the other default ballerina resource using the filter query.
          
-   ![Honeycomb](images/query1.png "Honeycomb")  
+![Honeycomb](images/query1.png "Honeycomb") 
     
    The result of the above query is as below : -
  
-   ![Honeycomb](images/result1.png "Honeycomb")
+![Honeycomb](images/result1.png "Honeycomb")
    
    
-   ###### Per service 
+###### Per service 
       
                
                Query parameters use for each category:-
@@ -869,14 +869,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                             
                  We filter out the other default ballerina resource using the filter query.
             
-   ![Honeycomb](images/query11.png "Honeycomb")  
+![Honeycomb](images/query11.png "Honeycomb")
        
    The result of the above query is as below : -
     
-   ![Honeycomb](images/result11.png "Honeycomb")
+![Honeycomb](images/result11.png "Honeycomb")
       
    
-  #### Resources with high response time 
+#### Resources with high response time 
    This will include self defined spans as well.
    
                 Query parameters use for each category:-
@@ -889,14 +889,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                          
                     We filter out the other default ballerina resource using the filter query.      
                          
-   ![Honeycomb](images/query4.png "Honeycomb")                     
+![Honeycomb](images/query4.png "Honeycomb")
                  
    The result of the above query is as follows : -
       
-   ![Honeycomb](images/result4.png "Honeycomb")
+![Honeycomb](images/result4.png "Honeycomb")
    
    
-   #### Counts of database manipulations
+#### Counts of database manipulations
 
       
                 Query parameters use for each category:-
@@ -907,14 +907,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                             4. ORDER - COUNT desc
                             5. LIMIT - 100     
                             
-   ![Honeycomb](images/query5.png "Honeycomb")                     
+![Honeycomb](images/query5.png "Honeycomb")                     
                     
    The result of the above query is as follows : -
          
-   ![Honeycomb](images/result5.png "Honeycomb")
+![Honeycomb](images/result5.png "Honeycomb")
    
    
-   #### Mostly hit resources 
+#### Mostly hit resources 
    This will include self defined spans as well.
               
                 Query parameters use for each category:-
@@ -928,17 +928,17 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                            
                   We filter out the other default ballerina resource using the filter query.
                                 
-   ![Honeycomb](images/query6.png "Honeycomb")                    
+![Honeycomb](images/query6.png "Honeycomb")
                     
    The result of the above query is as follows : -
          
-   ![Honeycomb](images/result6.png "Honeycomb")
+![Honeycomb](images/result6.png "Honeycomb")
    
    
    
-   #### Average response time
+#### Average response time
    
-  ###### Per service
+###### Per service
   
                 Query parameters use for each category:-
                     
@@ -947,14 +947,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                            3. LIMIT - 100
   
   
-   ![Honeycomb](images/query7.png "Honeycomb")                     
+![Honeycomb](images/query7.png "Honeycomb")
                       
    The result of the above query is as follows : -
-           
-   ![Honeycomb](images/result7.png "Honeycomb")
+         
+![Honeycomb](images/result7.png "Honeycomb")
    
    
-  ###### Per resource
+###### Per resource
    >This will include self defined spans as well.
                
                Query parameters use for each category:-
@@ -966,53 +966,52 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                            
                        We filter out the other default ballerina resource using the filter query.
                        
-  ![Honeycomb](images/query8.png "Honeycomb")                     
+![Honeycomb](images/query8.png "Honeycomb")
                         
    The result of the above query is as follows : -
              
-   ![Honeycomb](images/result8.png "Honeycomb") 
+![Honeycomb](images/result8.png "Honeycomb") 
    
    
-   #### Error detection
+#### Error detection
    
                  Query parameters use for each category:- 
   
                             1. CALCULATE PER GROUP - COUNT_DISTINCT(error_counts)
                             
-  ![Honeycomb](images/query9.png "Honeycomb")                     
+![Honeycomb](images/query9.png "Honeycomb")
                           
   The result of the above query is as follows : -
                
-  ![Honeycomb](images/result9.png "Honeycomb") 
+![Honeycomb](images/result9.png "Honeycomb") 
   
   
   
-  #### Percentiles of response duration
+#### Percentiles of response duration
   
-  ###### Per service
+###### Per service
   
                  Query parameters use for each category:-
                    
                             1. BREAK DOWN - serviceName 
                             2. CALCULATE PER GROUP - P75(durationMs),P50(durationMs), P25(durationMs)
-                            
-   ![Honeycomb](images/query10.png "Honeycomb")                     
+
                            
    The result of the above query is as follows : -
                 
-   ![Honeycomb](images/result10.png "Honeycomb") 
+![Honeycomb](images/result10.png "Honeycomb") 
    
    
-   #### Last 1 minute summary
+#### Last 1 minute summary
       
-   ###### Per service
+###### Per service
       
    To find the total request count per service with average response time for the last 1 minute :-
    
    >Duration can be set on the top right corner of the query builder. You can customize the 
    time period within which you wanted to get the metrics.
       
-   ![Honeycomb](images/time1.png "Honeycomb")
+![Honeycomb](images/time1.png "Honeycomb")
    
    By the drop down menu you can customize the time period.
           
@@ -1024,14 +1023,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                  
                     We filter out the other default ballerina resource using the filter query.
                              
-   ![Honeycomb](images/query12.png "Honeycomb")                     
+![Honeycomb](images/query12.png "Honeycomb")
                            
    The result of the above query is as follows : -
                 
-   ![Honeycomb](images/result12.png "Honeycomb")
+![Honeycomb](images/result12.png "Honeycomb")
    
    
-   ###### Per resource
+###### Per resource
    This will include all self defined span as well when finding the number of requests per resource wit average response time.
    Set the time period to 1 minute as instructed above.
    
@@ -1044,22 +1043,22 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                           
                       We filter out the other default ballerina resource using the filter query.
                           
-  ![Honeycomb](images/query13.png "Honeycomb")                     
+![Honeycomb](images/query13.png "Honeycomb")
                             
   The result of the above query is as follows : -
                  
-  ![Honeycomb](images/result13.png "Honeycomb")
+![Honeycomb](images/result13.png "Honeycomb")
   
   
-   #### Last 5 minutes summary
+#### Last 5 minutes summary
         
-   ###### Per service
+###### Per service
        
    To find the total request count per service with average response time for the last 5 minutes :-
   > Duration can be set on the top right corner of the query builder. You can customize the 
    time period within which you wanted to get the metrics.
         
-   ![Honeycomb](images/time2.png "Honeycomb")
+![Honeycomb](images/time2.png "Honeycomb")
      
    By the drop down menu you can customize the time period.
             
@@ -1071,14 +1070,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                    
                          We filter out the other default ballerina resource using the filter query.
                              
-   ![Honeycomb](images/query14.png "Honeycomb")                     
+![Honeycomb](images/query14.png "Honeycomb")
                              
    The result of the above query is as follows : -
                   
-   ![Honeycomb](images/result14.png "Honeycomb")
+![Honeycomb](images/result14.png "Honeycomb")
      
      
-   ###### Per resource
+###### Per resource
    This will include all self defined span as well.
    Set the time period to 5 minutes as instructed above.
      
@@ -1091,23 +1090,23 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                          
                        We filter out the other default ballerina resource using the filter query.
                             
-   ![Honeycomb](images/query15.png "Honeycomb")                     
+![Honeycomb](images/query15.png "Honeycomb")
                               
    The result of the above query is as follows : -
                    
-   ![Honeycomb](images/result15.png "Honeycomb")
+![Honeycomb](images/result15.png "Honeycomb")
    
    
    
-   #### Last 1 hour summary
+#### Last 1 hour summary
            
-   ###### Per service
+###### Per service
           
    To find the total request count per service with average response time for the last 1 hour :-
   > Duration can be set on the top right corner of the query builder. You can customize the 
    time period within which you wanted to get the metrics.
            
-   ![Honeycomb](images/time3.png "Honeycomb")
+![Honeycomb](images/time3.png "Honeycomb")
         
    By the drop down menu you can customize the time period.
                
@@ -1120,14 +1119,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                             
                       We filter out the other default ballerina resource using the filter query. 
                                 
-   ![Honeycomb](images/query16.png "Honeycomb")                     
+![Honeycomb](images/query16.png "Honeycomb")
                                 
    The result of the above query is as follows : -
                      
-   ![Honeycomb](images/result16.png "Honeycomb")
+![Honeycomb](images/result16.png "Honeycomb")
         
         
-   ###### Per resource
+###### Per resource
    This will include all self defined span as well.
    Set the time period to 1 hour as instructed above.
         
@@ -1140,13 +1139,13 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
                           
                        We filter out the other default ballerina resource using the filter query.
                                
-   ![Honeycomb](images/query17.png "Honeycomb")                     
+![Honeycomb](images/query17.png "Honeycomb")
                                  
    The result of the above query is as follows : -
-                      
-   ![Honeycomb](images/result17.png "Honeycomb")
+                     
+![Honeycomb](images/result17.png "Honeycomb")
 
-   ##### Honeycomb UI Boards
+##### Honeycomb UI Boards
    
    These queries can be predefined and added to the board so that the live observability can be achieved without building queries multiple times. 
    
@@ -1154,23 +1153,24 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
       
    - Create a board.  You can create a board when you run a query. You will see an option “Add to Board” above the query builder.
    
-   ![Honeycomb](images/table1.png "Honeycomb") 
+![Honeycomb](images/table1.png "Honeycomb") 
    
      
    -  After creating a board select the board. In this guide a board “Requests details” has been already created. Give a name for your query ,add description to be more clear and save the query
     
-   ![Honeycomb](images/table2.png "Honeycomb") 
+![Honeycomb](images/table2.png "Honeycomb") 
    
    - You can view your boards by clicking the “My Boards” in the team’s main menu in honeycomb UI.
 
-   ![Honeycomb](images/table4.png "Honeycomb")  
-   
+![Honeycomb](images/table4.png "Honeycomb")
+
    
    -  You can click on any of the boards and run the query for that particular instant.
    
-      ![Honeycomb](images/table5.png "Honeycomb")  
+![Honeycomb](images/table5.png "Honeycomb")
+
       
- ## About Honeycomb
+## About Honeycomb
 The observability is being achieved by sending traces to the honeycomb UI, in which various queries are executed in order to analyse various conditions where the service is being used by the clients. 
  
  Traces refers to the series of the flow of events that occurs when a request is being made and a response is given back. 
