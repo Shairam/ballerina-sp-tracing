@@ -1,3 +1,4 @@
+
   
 ## Integration with WSO2 Stream Processor
 
@@ -862,3 +863,7 @@ These traces contains metadata (span data) which can be captured by honeycomb an
 Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collects the zipkin formatted trace data and sends to honeycomb. 
 
 ![Honeycomb](images/structure.png "Open tracing")
+=======
+# ballerina-sp-tracing
+This repo is created in order to implement ballerina  with stream processor using distributed message tracing.
+>>>>>>> ae171ed81df8c0d08c6773ab6bf01f1367437ff7
