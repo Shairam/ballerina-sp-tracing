@@ -3,7 +3,7 @@ import ballerina/http;
 import ballerina/log;
 
 endpoint http:Client studentData {
-    url: " http://localhost:9292"
+    url: " http://192.168.1.6:9292"
 };
 
 function main(string... args) {

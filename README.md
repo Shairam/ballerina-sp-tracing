@@ -1,8 +1,7 @@
   
-## Integration with Honeycomb
+## Integration with WSO2 Stream Processor
 
- Honeycomb is a tool used for investigating on how well your system product is working in various conditions (for example - high traffic). Through honeycomb we are able to collect data of your own software which can be broken down into various entities to observe its performance specifically. [Read more about Honeycomb.](#about-honeycomb)
- 
+WSO2 stream processor provides us with distributed nmessage tracing. Th Distributed Message Tracer allows you to trace the events which are produced while ballerina services serve for requests. The ballerina services send these tracing data as WSO2 events.
  
 The following are the sections available in this guide.
 
@@ -29,6 +28,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 - [Ballerina Distribution](https://ballerina.io/learn/getting-started/)
 - [Docker](https://docs.docker.com/engine/installation/)
 - [MYSQL](https://github.com/Shairam/Ballerina-Honeycomb/blob/master/resources/testdb.sql)
+- [WSO2 - Stream Processor v4.3.0](https://github.com/wso2/product-sp/releases)
 - A Text Editor or an IDE 
 
 ## Implementation
@@ -64,18 +64,18 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 ```ballerina
 [b7a.observability.tracing]
 enabled=true
-name="zipkin"
+name="wso2sp"
 
-[b7a.observability.tracing.zipkin]
-reporter.hostname="localhost"
-reporter.port=9411
-
-# Send the spans in V1 format as honeycomb-opentracing-proxy supports on V1
-reporter.api.context="/api/v1/spans"
-reporter.api.version="v1"
-
-
-reporter.compression.enabled=false
+[b7a.observability.tracing.wso2sp]
+reporter.wso2sp.publisher.type="thrift"
+reporter.wso2sp.publisher.username="admin"
+reporter.wso2sp.publisher.password="admin"
+reporter.wso2sp.publisher.url="tcp://localhost:7611"
+reporter.wso2sp.publisher.authUrl="ssl://localhost:7711"
+reporter.wso2sp.publisher.databridge.agent.config="/home/shairam/Desktop/Check/src/main/resources/data.agent.config.yaml"
+javax.net.ssl.trustStore="/home/shairam/Desktop/Check/src/main/resources/wso2carbon.jks"
+javax.net.ssl.trustStorePassword="admin"
+reporter.wso2sp.publisher.service.name="ballerina_hello_world"
 ```
 
 - Then open the terminal and navigate to `ballerina-honeycomb/guide` and run Ballerina project initializing toolkit.
@@ -83,8 +83,31 @@ reporter.compression.enabled=false
 ``
    $ ballerina init
 ``
+- Also you need to clone and build the ballerina-sp-extension in the following repository [https://github.com/ballerina-platform/ballerina-observability](https://github.com/ballerina-platform/ballerina-observability) 
 
-### Development of student and marks service with Honeycomb
+- After building  move to `ballerina-sp-extension>/target/distribution/` and copy all the jar files to your `bre/lib` folder in your ballerina distribution.
+
+- Start WSO2 Stream Processor dashboard and worker. Set up the [distributed message tracing.](https://docs.wso2.com/display/SP420/Distributed+Message+Tracer)
+
+- Use `admin` as username and password. Include the following for your business rules.
+
+    ```
+    Span stream definition - @source(type='wso2event',  wso2.stream.id="SpanStream:1.0.0",  @map(type='wso2event')) define stream SpanStreamIn (componentName string, traceId  string, spanId long, baggage string, parentId long, operationName string, startMicros long, finishMicros long, tags string, references string);
+    Service Name - componentName
+    Operation Name - operationName
+    Span ID -  convert(spanId, 'string')
+    Trace ID - traceId
+    Tags - tags
+    Baggage Items - baggage
+    Start Time - startMicros
+    End Time - finishMicros
+    Span References - references
+    Parent ID - convert(parentId, 'string')
+    Parent span is defined - true 
+    ```
+ - Leave the rest fields as default values for parent span.
+
+### Development of student and marks service with Stream Processor
 
 Now let us look into the implementation of the student management with observability.
 
@@ -782,15 +805,7 @@ You can start both the services by opening a terminal and navigating to `balleri
 $ ballerina run --config <path-to-conf>/ballerina.conf students
 ```
 
- You need to start the honeycomb-opentracing-proxy. This can be done by using docker. Docker is used to pull the image for honeycomb-opentracing-proxy.
- Run the following command.
- 
- ```
- docker run -p 9411:9411 honeycombio/honeycomb-opentracing-proxy -k APIKEY -d traces
-```
-- -k represent the API KEY you will be getting when you sign in to honeycomb account.
-
-- -d represents the dataset you are going to send your trace data to.
+- You need to start the WSO2 Stream Processor dashboard and worker and navigate to the portal page. Here again use `admin` for both the username and password.
 
  You can observe the service performance by making some http requests to the above services. This is made easy for you as 
  there is a client program implemented. You can start the client program by opening another terminal and navigating to ballerina-honeycomb/guide
@@ -800,375 +815,26 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
  $ ballerina run client_service
  ``` 
  
-### Testing with Honeycomb
+### Testing with Distributed Message Tracer.
  
 #### Views of traces
- After making http request, go to [Honeycomb website](https://honeycomb.io) then move to your dataset.
+ After making some http requests, go to the distributed message tracing dashboard in your WSO2 Stream Processor portal.
 
-   When you are in your dataset in Honeycomb UI you get to see a button called `New query`, and when you click on that 
-   you can write your own queries on the metrics that you have received.
- - You are expected to see the traces as below when you include traceId in the breakdown category.
+
+ - You are expected to see the traces as below when you press the search button in the dashboard.
  
-![Honeycomb](images/traces1.png "Honeycomb")
+![Honeycomb](images/trace1.png "Honeycomb")
  
- - To view a particular trace click on the traceId column. And you will see as below
+ - To view a particular trace click on the trace row. And you will see as below
  
-![Honeycomb](images/traces2.png "Honeycomb")
+![Honeycomb](images/trace2.png "Honeycomb")
     
  - To view span details with metrics click on a particular span and you are expected to see as below
  
-![Honeycomb](images/traces3.png "Honeycomb")
+![Honeycomb](images/trace3.png "Honeycomb")
      
      
-#### Metrics
-     
-  You can perform some detailed queries in order to look deep in the performance of your services. Here are some examples:-
-  
-  - [Total requests](#total-requests)
-  - [Resources with high response time](#resources-with-high-response-time)
-  - [Counts of database manipulations](#counts-of-database-manipulations)
-  - [Mostly hit resources](#mostly-hit-resources)
-  - [Average response time](#average-response-time)
-  - [Error detection](#error-detection)
-  - [Percentiles of response duration](#percentiles-of-response-duration)
-  - [Last 1 minute summary](#last-1-minute-summary)
-  - [Last 5 minutes summary](#last-5-minutes-summary)
-  - [Last 1 hour summary](#last-1-hour-summary) 
-  
-##### Total requests
-   
-###### Per resource 
-   This will include self defined spans as well
-   
-            
-            Query parameters use for each category:-
-            
-                          1. BREAK DOWN - name
-                          2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId)
-                          3. FILTER - name does-not-start-with ballerina/ 
-                          
-            
-         We filter out the other default ballerina resource using the filter query.
-         
-![Honeycomb](images/query1.png "Honeycomb") 
     
-   The result of the above query is as below : -
- 
-![Honeycomb](images/result1.png "Honeycomb")
-   
-   
-###### Per service 
-      
-               
-               Query parameters use for each category:-
-               
-                            1. BREAK DOWN - serviceName 
-                            2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId)
-                            3. FILTER - name does-not-start-with ballerina/ 
-                            4. LIMIT - 100
-                            
-                 We filter out the other default ballerina resource using the filter query.
-            
-![Honeycomb](images/query11.png "Honeycomb")
-       
-   The result of the above query is as below : -
-    
-![Honeycomb](images/result11.png "Honeycomb")
-      
-   
-#### Resources with high response time 
-   This will include self defined spans as well.
-   
-                Query parameters use for each category:-
-
-                         1. BREAK DOWN - name
-                         2. CALCULATE PER GROUP - MAX(durationMs)
-                         3. FILTER - name does-not-start-with ballerina/
-                         4. ORDER - MAX(durationMs) desc
-                         5. LIMIT - 100
-                         
-                    We filter out the other default ballerina resource using the filter query.      
-                         
-![Honeycomb](images/query4.png "Honeycomb")
-                 
-   The result of the above query is as follows : -
-      
-![Honeycomb](images/result4.png "Honeycomb")
-   
-   
-#### Counts of database manipulations
-
-      
-                Query parameters use for each category:-
-                
-                            1. BREAK DOWN - name
-                            2. CALCULATE PER GROUP - COUNT
-                            3. FILTER - db.instance = testdb
-                            4. ORDER - COUNT desc
-                            5. LIMIT - 100     
-                            
-![Honeycomb](images/query5.png "Honeycomb")                     
-                    
-   The result of the above query is as follows : -
-         
-![Honeycomb](images/result5.png "Honeycomb")
-   
-   
-#### Mostly hit resources 
-   This will include self defined spans as well.
-              
-                Query parameters use for each category:-
-            
-                           1. BREAK DOWN - name
-                           2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId)
-                           3. FILTER - name does-not-start-with ballerina/
-                           4. ORDER - COUNT_DISTINCT(traceId) desc
-                           5. LIMIT - 100
-                           
-                           
-                  We filter out the other default ballerina resource using the filter query.
-                                
-![Honeycomb](images/query6.png "Honeycomb")
-                    
-   The result of the above query is as follows : -
-         
-![Honeycomb](images/result6.png "Honeycomb")
-   
-   
-   
-#### Average response time
-   
-###### Per service
-  
-                Query parameters use for each category:-
-                    
-                           1. BREAK DOWN - serviceName
-                           2. CALCULATE PER GROUP - AVG(durationMs)
-                           3. LIMIT - 100
-  
-  
-![Honeycomb](images/query7.png "Honeycomb")
-                      
-   The result of the above query is as follows : -
-         
-![Honeycomb](images/result7.png "Honeycomb")
-   
-   
-###### Per resource
-   >This will include self defined spans as well.
-               
-               Query parameters use for each category:-
-               
-                           1. BREAK DOWN - name
-                           2. CALCULATE PER GROUP - AVG(durationMs)
-                           3. FILTER - name does-not-start-with ballerina/
-                           4. LIMIT - 100
-                           
-                       We filter out the other default ballerina resource using the filter query.
-                       
-![Honeycomb](images/query8.png "Honeycomb")
-                        
-   The result of the above query is as follows : -
-             
-![Honeycomb](images/result8.png "Honeycomb") 
-   
-   
-#### Error detection
-   
-                 Query parameters use for each category:- 
-  
-                            1. CALCULATE PER GROUP - COUNT_DISTINCT(error_counts)
-                            
-![Honeycomb](images/query9.png "Honeycomb")
-                          
-  The result of the above query is as follows : -
-               
-![Honeycomb](images/result9.png "Honeycomb") 
-  
-  
-  
-#### Percentiles of response duration
-  
-###### Per service
-  
-                 Query parameters use for each category:-
-                   
-                            1. BREAK DOWN - serviceName 
-                            2. CALCULATE PER GROUP - P75(durationMs),P50(durationMs), P25(durationMs)
-
-                           
-   The result of the above query is as follows : -
-                
-![Honeycomb](images/result10.png "Honeycomb") 
-   
-   
-#### Last 1 minute summary
-      
-###### Per service
-      
-   To find the total request count per service with average response time for the last 1 minute :-
-   
-   >Duration can be set on the top right corner of the query builder. You can customize the 
-   time period within which you wanted to get the metrics.
-      
-![Honeycomb](images/time1.png "Honeycomb")
-   
-   By the drop down menu you can customize the time period.
-          
-                 Query parameters use for each category:-
-                 
-                        1. BREAK DOWN - serviceName
-                        2. CALCULATE PER GROUP - AVG(durationMs), COUNT_DISTINCT(traceId)
-                        3. FILTER - name does-not-start-with ballerina/     
-                 
-                    We filter out the other default ballerina resource using the filter query.
-                             
-![Honeycomb](images/query12.png "Honeycomb")
-                           
-   The result of the above query is as follows : -
-                
-![Honeycomb](images/result12.png "Honeycomb")
-   
-   
-###### Per resource
-   This will include all self defined span as well when finding the number of requests per resource wit average response time.
-   Set the time period to 1 minute as instructed above.
-   
-                Query parameters use for each category:-
-            
-                          1. BREAK DOWN - name
-                          2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId), AVG(durationMs)
-                          3. FILTER - name does-not-start-with ballerina/ 
-                          4. LIMIT - 100 
-                          
-                      We filter out the other default ballerina resource using the filter query.
-                          
-![Honeycomb](images/query13.png "Honeycomb")
-                            
-  The result of the above query is as follows : -
-                 
-![Honeycomb](images/result13.png "Honeycomb")
-  
-  
-#### Last 5 minutes summary
-        
-###### Per service
-       
-   To find the total request count per service with average response time for the last 5 minutes :-
-  > Duration can be set on the top right corner of the query builder. You can customize the 
-   time period within which you wanted to get the metrics.
-        
-![Honeycomb](images/time2.png "Honeycomb")
-     
-   By the drop down menu you can customize the time period.
-            
-                   Query parameters use for each category:-
-                   
-                          1. BREAK DOWN - serviceName
-                          2. CALCULATE PER GROUP - AVG(durationMs), COUNT_DISTINCT(traceId)
-                          3. FILTER - name does-not-start-with ballerina/     
-                   
-                         We filter out the other default ballerina resource using the filter query.
-                             
-![Honeycomb](images/query14.png "Honeycomb")
-                             
-   The result of the above query is as follows : -
-                  
-![Honeycomb](images/result14.png "Honeycomb")
-     
-     
-###### Per resource
-   This will include all self defined span as well.
-   Set the time period to 5 minutes as instructed above.
-     
-                  Query parameters use for each category:-
-              
-                         1. BREAK DOWN - name
-                         2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId), AVG(durationMs)
-                         3. FILTER - name does-not-start-with ballerina/ 
-                         4. LIMIT - 100 
-                         
-                       We filter out the other default ballerina resource using the filter query.
-                            
-![Honeycomb](images/query15.png "Honeycomb")
-                              
-   The result of the above query is as follows : -
-                   
-![Honeycomb](images/result15.png "Honeycomb")
-   
-   
-   
-#### Last 1 hour summary
-           
-###### Per service
-          
-   To find the total request count per service with average response time for the last 1 hour :-
-  > Duration can be set on the top right corner of the query builder. You can customize the 
-   time period within which you wanted to get the metrics.
-           
-![Honeycomb](images/time3.png "Honeycomb")
-        
-   By the drop down menu you can customize the time period.
-               
-                  Query parameters use for each category:-
-                      
-                          1. BREAK DOWN - serviceName
-                          2. CALCULATE PER GROUP - AVG(durationMs), COUNT_DISTINCT(traceId)
-                          3. FILTER - name does-not-start-with ballerina/   
-                          
-                            
-                      We filter out the other default ballerina resource using the filter query. 
-                                
-![Honeycomb](images/query16.png "Honeycomb")
-                                
-   The result of the above query is as follows : -
-                     
-![Honeycomb](images/result16.png "Honeycomb")
-        
-        
-###### Per resource
-   This will include all self defined span as well.
-   Set the time period to 1 hour as instructed above.
-        
-                  Query parameters use for each category:-
-                 
-                          1. BREAK DOWN - name
-                          2. CALCULATE PER GROUP - COUNT_DISTINCT(traceId), AVG(durationMs)
-                          3. FILTER - name does-not-start-with ballerina/ 
-                          4. LIMIT - 100 
-                          
-                       We filter out the other default ballerina resource using the filter query.
-                               
-![Honeycomb](images/query17.png "Honeycomb")
-                                 
-   The result of the above query is as follows : -
-                     
-![Honeycomb](images/result17.png "Honeycomb")
-
-##### Honeycomb UI Boards
-   
-   These queries can be predefined and added to the board so that the live observability can be achieved without building queries multiple times. 
-   
-   To add a query to a board : -
-      
-   - Create a board.  You can create a board when you run a query. You will see an option “Add to Board” above the query builder.
-   
-![Honeycomb](images/table1.png "Honeycomb") 
-   
-     
-   -  After creating a board select the board. In this guide a board “Requests details” has been already created. Give a name for your query ,add description to be more clear and save the query
-    
-![Honeycomb](images/table2.png "Honeycomb") 
-   
-   - You can view your boards by clicking the “My Boards” in the team’s main menu in honeycomb UI.
-
-![Honeycomb](images/table4.png "Honeycomb")
-
-   
-   -  You can click on any of the boards and run the query for that particular instant.
-   
-![Honeycomb](images/table5.png "Honeycomb")
-
       
 ## About Honeycomb
 The observability is being achieved by sending traces to the honeycomb UI, in which various queries are executed in order to analyse various conditions where the service is being used by the clients. 
