@@ -10,17 +10,17 @@ The following are the sections available in this guide.
 - [Prerequisites](#prerequisites)
 - [Implementation](#implementation)
 - [Testing](#testing)
-- [Configuration with Honeycomb](#testing-with-honeycomb)
+- [Testing with distributed message tracing](#testing-with-distributed-message-tracer.)
      - [Traces](#views-of-traces)
-     - [Metrics](#metrics)
+     
 
 
 
 ## What you’ll build 
 
-To perform this integration with Honeycomb,  a real world use case of a very simple student management system is used.
+To perform this integration with Stream Processor,  a real world use case of a very simple student management system is used.
 
-![Honeycomb](images/observe.png "Ballerina-Honeycomb")
+![SP](images/observe.png "Ballerina-SP")
 
 - **Make Requests** : To perform actions on student  management service, a console based client program has been written in Ballerina for your ease of making requests.
 
@@ -28,7 +28,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
  
 - [Ballerina Distribution](https://ballerina.io/learn/getting-started/)
 - [Docker](https://docs.docker.com/engine/installation/)
-- [MYSQL](https://github.com/Shairam/Ballerina-Honeycomb/blob/master/resources/testdb.sql)
+- [MYSQL](https://github.com/Shairam/ballerina-sp-tracing/blob/master/resources/testdb.sql)
 - [WSO2 - Stream Processor v4.3.0](https://github.com/wso2/product-sp/releases)
 - A Text Editor or an IDE 
 
@@ -38,7 +38,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 
 ### Implementing database
  - Start MYSQL server in your local machine.
- - Create a database with name `testdb` in your MYSQL localhost. If you want to skip the database implementation, then directly import the [testdb.sql](https://github.com/Shairam/Ballerina-Honeycomb/blob/master/resources/testdb.sql) file into your localhost. You can find it in the Github repo.
+ - Create a database with name `testdb` in your MYSQL localhost. If you want to skip the database implementation, then directly import the [testdb.sql](https://github.com/Shairam/ballerina-sp-tracing/blob/master/resources/testdb.sql) file into your localhost. You can find it in the Github repo.
  
  
  
@@ -48,7 +48,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
  For the purpose of this guide, let's use the following package structure.
         
     
-    ballerina-honeycomb
+    ballerina-sp-tracing
            └── guide
                 ├── students
                 │   ├── student_management_service.bal
@@ -60,7 +60,7 @@ To perform this integration with Honeycomb,  a real world use case of a very sim
 
 - Create the above directories in your local machine, along with the empty `.bal` files.
 
-- You have to add the following lines in your [ballerina.conf](https://github.com/Shairam/Ballerina-Honeycomb/blob/master/ballerina.conf) to send the service traces to Honeycomb in Zipkin format using Opentracing.
+- You have to add the following lines in your [ballerina.conf](https://github.com/Shairam/ballerina-sp-tracing/blob/master/ballerina.conf).
 
 ```ballerina
 [b7a.observability.tracing]
@@ -79,7 +79,7 @@ javax.net.ssl.trustStorePassword="admin"
 reporter.wso2sp.publisher.service.name="ballerina_hello_world"
 ```
 
-- Then open the terminal and navigate to `ballerina-honeycomb/guide` and run Ballerina project initializing toolkit.
+- Then open the terminal and navigate to `ballerina-sp-tracing/guide` and run Ballerina project initializing toolkit.
 
 ``
    $ ballerina init
@@ -800,7 +800,7 @@ function getMarks(){
 
 ### Invoking the student management service
 
-You can start both the services by opening a terminal and navigating to `ballerina-honeycomb/guide`, and execute the following command.
+You can start both the services by opening a terminal and navigating to `ballerina-sp-tracing/guide`, and execute the following command.
 
 ```
 $ ballerina run --config <path-to-conf>/ballerina.conf students
@@ -809,7 +809,7 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
 - You need to start the WSO2 Stream Processor dashboard and worker and navigate to the portal page. Here again use `admin` for both the username and password.
 
  You can observe the service performance by making some http requests to the above services. This is made easy for you as 
- there is a client program implemented. You can start the client program by opening another terminal and navigating to ballerina-honeycomb/guide
+ there is a client program implemented. You can start the client program by opening another terminal and navigating to ballerina-sp-tracing/guide
  and run the below command
  
  ```
@@ -824,46 +824,14 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
 
  - You are expected to see the traces as below when you press the search button in the dashboard.
  
-![Honeycomb](images/trace1.png "Honeycomb")
+![SP](images/trace1.png "SP")
  
  - To view a particular trace click on the trace row. And you will see as below
  
-![Honeycomb](images/trace2.png "Honeycomb")
+![SP](images/trace2.png "SP")
     
  - To view span details with metrics click on a particular span and you are expected to see as below
  
-![Honeycomb](images/trace3.png "Honeycomb")
+![SP](images/trace3.png "SP")
      
-     
-    
-      
-## About Honeycomb
-The observability is being achieved by sending traces to the honeycomb UI, in which various queries are executed in order to analyse various conditions where the service is being used by the clients. 
- 
- Traces refers to the series of the flow of events that occurs when a request is being made and a response is given back. 
- 
- 
-![Honeycomb](images/spans2.png "Honeycomb")
-
-
-
-For example a client requesting data from the database as above.
-E refers to an event.
-A trace is the path from E1 to E4.
-
-Traces are further broken down into spans. 
-Spans can be defined as a single operation, i.e server requesting from database to obtain data and receiving it (E2+E3). 
-Spans contain data which can be used for interpreting the performance.
-
-These traces contains metadata (span data) which can be captured by honeycomb and be shown graphically or in raw data.
-
-
-#### Honeycomb open-tracing proxy
-
-Honeycomb works with the data collected in Zipkin format. This proxy will run in your local machine and collects the zipkin formatted trace data and sends to honeycomb. 
-
-![Honeycomb](images/structure.png "Open tracing")
-=======
-# ballerina-sp-tracing
-This repo is created in order to implement ballerina  with stream processor using distributed message tracing.
->>>>>>> ae171ed81df8c0d08c6773ab6bf01f1367437ff7
+  
