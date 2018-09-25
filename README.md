@@ -2,7 +2,7 @@
   
 ## Integration with WSO2 Stream Processor
 
-WSO2 stream processor provides us with distributed nmessage tracing. Th Distributed Message Tracer allows you to trace the events which are produced while ballerina services serve for requests. The ballerina services send these tracing data as WSO2 events.
+WSO2 stream processor provides us with distributed message tracing. The Distributed Message Tracer allows you to trace the events which are produced while ballerina services serve for requests. The ballerina services send these tracing data as WSO2 events.
  
 The following are the sections available in this guide.
 
@@ -27,7 +27,6 @@ To perform this integration with Stream Processor,  a real world use case of a v
 ## Prerequisites
  
 - [Ballerina Distribution](https://ballerina.io/learn/getting-started/)
-- [Docker](https://docs.docker.com/engine/installation/)
 - [MYSQL](https://github.com/Shairam/ballerina-sp-tracing/blob/master/resources/testdb.sql)
 - [WSO2 - Stream Processor v4.3.0](https://github.com/wso2/product-sp/releases)
 - A Text Editor or an IDE 
@@ -73,12 +72,15 @@ reporter.wso2sp.publisher.username="admin"
 reporter.wso2sp.publisher.password="admin"
 reporter.wso2sp.publisher.url="tcp://localhost:7611"
 reporter.wso2sp.publisher.authUrl="ssl://localhost:7711"
-reporter.wso2sp.publisher.databridge.agent.config="/home/shairam/Desktop/Check/src/main/resources/data.agent.config.yaml"
-javax.net.ssl.trustStore="/home/shairam/Desktop/Check/src/main/resources/wso2carbon.jks"
+reporter.wso2sp.publisher.databridge.agent.config="<SET ABSOLUTE PATH>/data.agent.config.yaml"
+javax.net.ssl.trustStore="<SET ABSOLUTE PATH>/wso2carbon.jks"
 javax.net.ssl.trustStorePassword="admin"
 reporter.wso2sp.publisher.service.name="ballerina_hello_world"
 ```
-
+- In the ballerina.conf file for line number 11 and 12, you are required to give the appropriate absolute path to the following files mentioned in the lines.
+- You can find these files [here](https://github.com/Shairam/ballerina-sp-tracing/tree/extras-1/resources/main/resources).
+- Also you need to update the [data.agent.config.yaml](https://github.com/Shairam/ballerina-sp-tracing/blob/extras-1/resources/main/resources/data.agent.config.yaml) file by including the absolute path of the [required files](https://github.com/Shairam/ballerina-sp-tracing/tree/extras-1/resources/main/resources) in the following fields. 
+  - trustStorePath, keystoreLocation, secretPropertiesFile, masterKeyReaderFile .
 - Then open the terminal and navigate to `ballerina-sp-tracing/guide` and run Ballerina project initializing toolkit.
 
 ``
@@ -86,7 +88,7 @@ reporter.wso2sp.publisher.service.name="ballerina_hello_world"
 ``
 - Also you need to clone and build the ballerina-sp-extension in the following repository [https://github.com/ballerina-platform/ballerina-observability](https://github.com/ballerina-platform/ballerina-observability) 
 
-- After building  move to `ballerina-sp-extension>/target/distribution/` and copy all the jar files to your `bre/lib` folder in your ballerina distribution.
+- After building  move to `ballerina-sp-extension/target/distribution/` and copy all the jar files to your `bre/lib` folder in your ballerina distribution.
 
 - Start WSO2 Stream Processor dashboard and worker. Set up the [distributed message tracing.](https://docs.wso2.com/display/SP420/Distributed+Message+Tracer)
 
@@ -833,5 +835,17 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
  - To view span details with metrics click on a particular span and you are expected to see as below
  
 ![SP](images/trace3.png "SP")
-     
+
+- You can filter the received traces by providing the service names, time and/or resource names in the tracing search box.
+
+  - Tracing search -
   
+  ![SP](images/trace6.png "SP")
+  
+  - Filter using service name and time -
+
+   ![SP](images/trace5.png "SP")
+     
+  - Filter using resource name and time -
+
+   ![SP](images/trace4.png "SP")
