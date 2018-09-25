@@ -142,7 +142,6 @@ service<http:Service> StudentData bind listener1 {
 
         errors++;
         io:println(errors);
-
         log:printError("error test");
         response.setTextPayload("Test Error made");
         _ = httpConnection->respond(response);
