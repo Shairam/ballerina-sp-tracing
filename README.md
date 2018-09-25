@@ -836,5 +836,17 @@ $ ballerina run --config <path-to-conf>/ballerina.conf students
  - To view span details with metrics click on a particular span and you are expected to see as below
  
 ![SP](images/trace3.png "SP")
-     
+
+- You can filter the received traces by providing the service names, time and/or resource names in the tracing search box.
+
+  - Tracing search -
   
+  ![SP](images/trace6.png "SP")
+  
+  - Filter using service name and time -
+
+   ![SP](images/trace5.png "SP")
+     
+  - Filter using resource name and time -
+
+   ![SP](images/trace4.png "SP")

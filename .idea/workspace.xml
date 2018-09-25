@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="40c4e6fb-a6cd-46ea-a66d-960c1fa12f9e" name="Default" comment="Initial commit">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guide/client_service/client_main.bal" beforeDir="false" afterPath="$PROJECT_DIR$/guide/client_service/client_main.bal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/guide/students/student_management_service.bal" beforeDir="false" afterPath="$PROJECT_DIR$/guide/students/student_management_service.bal" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,8 +26,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="510">
-                <caret line="91" column="49" selection-start-line="91" selection-start-column="49" selection-end-line="91" selection-end-column="49" />
+              <first_editor relative-caret-position="437">
+                <caret line="849" column="25" selection-start-line="849" selection-start-column="25" selection-end-line="849" selection-end-column="25" />
               </first_editor>
               <second_editor />
             </state>
@@ -319,7 +317,7 @@
       <window_info anchor="right" id="Maven Projects" order="7" weight="0.32946378" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32843652" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32948583" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3452256" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3452256" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4963274" weight="0.1901603" />
@@ -519,8 +517,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="510">
-            <caret line="91" column="49" selection-start-line="91" selection-start-column="49" selection-end-line="91" selection-end-column="49" />
+          <first_editor relative-caret-position="437">
+            <caret line="849" column="25" selection-start-line="849" selection-start-column="25" selection-end-line="849" selection-end-column="25" />
           </first_editor>
           <second_editor />
         </state>
