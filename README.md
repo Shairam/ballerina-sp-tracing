@@ -27,7 +27,6 @@ To perform this integration with Stream Processor,  a real world use case of a v
 ## Prerequisites
  
 - [Ballerina Distribution](https://ballerina.io/learn/getting-started/)
-- [Docker](https://docs.docker.com/engine/installation/)
 - [MYSQL](https://github.com/Shairam/ballerina-sp-tracing/blob/master/resources/testdb.sql)
 - [WSO2 - Stream Processor v4.3.0](https://github.com/wso2/product-sp/releases)
 - A Text Editor or an IDE 
