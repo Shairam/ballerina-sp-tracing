@@ -132,7 +132,7 @@ service<http:Service> StudentData bind listener1 {
     }
 
     @http:ResourceConfig {
-        methods: ["POST"],
+        methods: ["GET"],
         path: "/testError"
     }
     //Fake an error

@@ -176,7 +176,7 @@ function deleteStudent(){
 }
 
 function makeError() {
-    var requ = studentData->post("/records/testError",null);
+    var requ = studentData->get("/records/testError");
     match requ {
         http:Response response => {
             var msg = response.getTextPayload();

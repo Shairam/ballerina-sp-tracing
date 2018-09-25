@@ -89,7 +89,7 @@ reporter.wso2sp.publisher.service.name="ballerina_hello_world"
 ``
 - Also you need to clone and build the ballerina-sp-extension in the following repository [https://github.com/ballerina-platform/ballerina-observability](https://github.com/ballerina-platform/ballerina-observability) 
 
-- After building  move to `ballerina-sp-extension>/target/distribution/` and copy all the jar files to your `bre/lib` folder in your ballerina distribution.
+- After building  move to `ballerina-sp-extension/target/distribution/` and copy all the jar files to your `bre/lib` folder in your ballerina distribution.
 
 - Start WSO2 Stream Processor dashboard and worker. Set up the [distributed message tracing.](https://docs.wso2.com/display/SP420/Distributed+Message+Tracer)
 
