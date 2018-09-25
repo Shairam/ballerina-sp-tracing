@@ -132,21 +132,23 @@ service<http:Service> StudentData bind listener1 {
     }
 
     @http:ResourceConfig {
-        methods: ["GET"],
+        methods: ["POST"],
         path: "/testError"
     }
-    //viewStudent service to get all the students details and send to the requested user
+    //Fake an error
     testError(endpoint httpConnection, http:Request request) {
         req_count++;
         http:Response response;
 
         errors++;
         io:println(errors);
-        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
-        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
+
         log:printError("error test");
         response.setTextPayload("Test Error made");
         _ = httpConnection->respond(response);
+
+        _ = observe:addTagToSpan(spanId = -1, "error_counts", <string>errors);
+        _ = observe:addTagToSpan(spanId = -1, "tot_requests", <string>req_count);
     }
 
     @http:ResourceConfig {
