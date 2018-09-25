@@ -31,7 +31,7 @@ data.agent.config:
         # Data publisher strategy
       publishingStrategy: async
         # Trust store path
-      trustStorePath: '/home/shairam/Desktop/Check/src/main/resources/wso2carbon.jks'
+      trustStorePath: '<SET ABSOLUTE PATH>/wso2carbon.jks'
         # Trust store password
       trustStorePassword: 'wso2carbon'
         # Queue Size
@@ -123,9 +123,9 @@ wso2.securevault:
     type: org.wso2.carbon.secvault.repository.DefaultSecretRepository
     parameters:
       privateKeyAlias: wso2carbon
-      keystoreLocation: /home/shairam/Desktop/Check/src/main/resources/securevault.jks
-      secretPropertiesFile: /home/shairam/Desktop/Check/src/main/resources/secrets.properties
+      keystoreLocation: <SET ABSOLUTE PATH>/securevault.jks
+      secretPropertiesFile: <SET ABSOLUTE PATH>/secrets.properties
   masterKeyReader:
     type: org.wso2.carbon.secvault.reader.DefaultMasterKeyReader
     parameters:
-      masterKeyReaderFile: /home/shairam/Desktop/Check/src/main/resources/master-keys.yaml
+      masterKeyReaderFile: <SET ABSOLUTE PATH>/master-keys.yaml
