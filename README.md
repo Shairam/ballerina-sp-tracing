@@ -73,12 +73,15 @@ reporter.wso2sp.publisher.username="admin"
 reporter.wso2sp.publisher.password="admin"
 reporter.wso2sp.publisher.url="tcp://localhost:7611"
 reporter.wso2sp.publisher.authUrl="ssl://localhost:7711"
-reporter.wso2sp.publisher.databridge.agent.config="/home/shairam/Desktop/Check/src/main/resources/data.agent.config.yaml"
-javax.net.ssl.trustStore="/home/shairam/Desktop/Check/src/main/resources/wso2carbon.jks"
+reporter.wso2sp.publisher.databridge.agent.config="<SET ABSOLUTE PATH>/data.agent.config.yaml"
+javax.net.ssl.trustStore="<SET ABSOLUTE PATH>/wso2carbon.jks"
 javax.net.ssl.trustStorePassword="admin"
 reporter.wso2sp.publisher.service.name="ballerina_hello_world"
 ```
-
+- In the ballerina.conf file for line number 11 and 12, you are required to give the appropriate absolute path to the following files mentioned in the lines.
+- You can find these files [here]().
+- Also you need to update the [data.agent.config.yaml]() file by including the absolute path of the [required files]() in the following fields. 
+  - trustStorePath, keystoreLocation, secretPropertiesFile, masterKeyReaderFile .
 - Then open the terminal and navigate to `ballerina-sp-tracing/guide` and run Ballerina project initializing toolkit.
 
 ``

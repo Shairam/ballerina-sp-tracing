@@ -3,7 +3,7 @@ import ballerina/http;
 import ballerina/log;
 
 endpoint http:Client studentData {
-    url: " http://192.168.1.6:9292"
+    url: " http://localhost:9292"
 };
 
 function main(string... args) {
@@ -176,7 +176,7 @@ function deleteStudent(){
 }
 
 function makeError() {
-    var requ = studentData->get("/records/testError");
+    var requ = studentData->post("/records/testError",null);
     match requ {
         http:Response response => {
             var msg = response.getTextPayload();
