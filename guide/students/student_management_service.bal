@@ -7,16 +7,14 @@ import ballerina/log;
 
 
 // type Student is created to store details of a student
-documentation {
-  `Student` is a user defined record type in Ballerina program. Used to represent a student entity
-}
+
 
 type Student record {
-    int id,
-    int age,
-    string name,
-    int mobNo,
-    string address,
+    int id;
+    int age;
+    string name;
+    int mobNo;
+    string address;
 };
 //End point for marks details client
 endpoint http:Client marksService {
@@ -214,15 +212,6 @@ service<http:Service> StudentData bind listener1 {
 // Function to insert values to database
 
 
-documentation {
-  `insertData` is a function to add data to student records database
-   P{{name}} This is the name of the student to be added.
-   P{{age}} Student age
-   P{{mobNo}} Student mobile number
-   P{{address}} Student address.
-   R{{}} This function returns a json object. If data is added it returns json containing a status and id of student added.
-            If data is not added , it returns the json containing a status and error message.
-  }
 
 
 public function insertData(string name, int age, int mobNo, string address) returns (json) {
@@ -265,12 +254,6 @@ public function insertData(string name, int age, int mobNo, string address) retu
 }
 
 
-documentation {
-  `deleteData` is a function to delete a student's data from student records database
-    P{{stuId}} This is the id of the student to be deleted.
-    R{{}} This function returns a json object. If data is deleted it returns json containing a status.
-            If data is not deleted , it returns the json containing a status and error message.
-}
 
 // Function to delete a student record with id
 public function deleteData(int stuId) returns (json) {
@@ -297,11 +280,7 @@ public function deleteData(int stuId) returns (json) {
     return status;
 }
 
-documentation {
-  `getId` is a function to get the Id of the student added in latest.
-   P{{mobNo}} This is the mobile number of the student added which is passed as parameter to build up the query.
-   R{{}} This function returns either a table which has only one row of the student details or an error.
-}
+
 
 // Function to get the generated Id of the student recently added
 public function getId(int mobNo) returns (table|error) {
