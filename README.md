@@ -2,7 +2,7 @@
   
 ## Integration with WSO2 Stream Processor
 
-WSO2 stream processor provides us with distributed nmessage tracing. Th Distributed Message Tracer allows you to trace the events which are produced while ballerina services serve for requests. The ballerina services send these tracing data as WSO2 events.
+WSO2 stream processor provides us with distributed message tracing. The Distributed Message Tracer allows you to trace the events which are produced while ballerina services serve for requests. The ballerina services send these tracing data as WSO2 events.
  
 The following are the sections available in this guide.
 
