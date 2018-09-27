@@ -1,1 +1,7 @@
 target/
+
+# Remove idea files
+.idea/
+
+# Remove .ballerina folder
+.ballerina/
