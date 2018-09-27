@@ -80,7 +80,7 @@ public function findMarks(int stuId) returns (json) {
     match ret {
         table tableReturned => datatable = tableReturned;
         error e => {
-             log:printError(err.message,err= err);
+             log:printError(err.message,err = e);
             status = { "Status": "Select data from student table failed: ", "Error": e.message };
             return status;
         }
