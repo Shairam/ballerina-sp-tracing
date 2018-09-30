@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Shairam/ballerina-sp-tracing.svg?branch=master)](https://travis-ci.org/Shairam/ballerina-sp-tracing)
+[![Build Status](https://travis-ci.org/Shairam/ballerina-sp-tracing-2.svg?branch=master)](https://travis-ci.org/Shairam/ballerina-sp-tracing-2)
   
 ## Integration with WSO2 Stream Processor
 
