@@ -133,7 +133,7 @@ function viewAllStudents() {
                         while (i < lengthof jsonPL) {
                             message = "Student Name: " + jsonPL[i]["name"] .toString() + ", " + " Student Age: " + jsonPL[i]["age"] .toString();
                             io:println(message);
-                            i++;
+                            i+=1;
                         }
                         io:println();
                     }

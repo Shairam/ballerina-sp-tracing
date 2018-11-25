@@ -67,7 +67,7 @@ service<http:Service> StudentData bind listener1 {
     // Add Students resource used to add student records to the system.
     addStudents(endpoint httpConnection, http:Request request) {
         // Initialize an empty http response message
-        requestCounts++;
+        requestCounts+=1;
         http:Response response;
         Student stuData;
 
@@ -95,7 +95,7 @@ service<http:Service> StudentData bind listener1 {
     }
     // View students resource is to get all the students details and send to the requested user.
     viewStudents(endpoint httpConnection, http:Request request) {
-        requestCounts++;
+        requestCounts+=1;
         int chSpanId = check observe:startSpan("Check span 1");
         http:Response response;
         json status = {};
@@ -147,10 +147,10 @@ service<http:Service> StudentData bind listener1 {
     }
     // Test Error resource to make a mock error.
     testError(endpoint httpConnection, http:Request request) {
-        requestCounts++;
+        requestCounts+=1;
         http:Response response;
 
-        errors++;
+        errors+=1;
         io:println(errors);
         // The below function adds tags that are to be passed as metrics in the traces. These tags are added to the default ootb system span.
         _ = observe:addTagToSpan("error_counts", <string>errors);
@@ -166,7 +166,7 @@ service<http:Service> StudentData bind listener1 {
     }
     // Delete Students resource for deleteing a student using id.
     deleteStudent(endpoint httpConnection, http:Request request, int stuId) {
-        requestCounts++;
+        requestCounts+=1;
         http:Response response;
         json status = {};
 
@@ -188,7 +188,7 @@ service<http:Service> StudentData bind listener1 {
     }
     // Get marks resource for obtaining marks of a particular student.
     getMarks(endpoint httpConnection, http:Request request, int stuId) {
-        requestCounts++;
+        requestCounts+=1;
         http:Response response;
         json result;
 
